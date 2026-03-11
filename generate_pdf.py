@@ -389,30 +389,15 @@ def build_pdf():
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
-    # Math schedule
-    pdf.section_title("Tu Horario")
-    sw = [28, 150]
-    sched_math = [
-        ("8:00", "Llegada, registro y bolsa de bienvenida"),
-        ("8:00 - 8:45", "Desayuno de bienvenida"),
-        ("8:45", "Traslado a aulas (flechas ROJAS)"),
-        ("9:00", "Inicio de sesiones de la manana"),
-        ("1:00 - 2:00", "ALMUERZO"),
-        ("2:00", "Sesiones de la tarde"),
-        ("4:00 - 4:30", "RECESO"),
-        ("4:30 - 5:30", "Continuacion de sesiones"),
-        ("5:30 (Dia 2)", "Clausura en auditorio + foto grupal"),
-        ("~6:10", "Bus de regreso a tu UGEL"),
-    ]
-    pdf.sched_row(["Hora", "Actividad"], sw, bold=True, bg=RED, text_color=WHITE)
-    for i, (hora, act) in enumerate(sched_math):
-        bg = LIGHT_BG if i % 2 == 0 else WHITE
-        if "ALMUERZO" in act: bg = (255, 235, 238)
-        elif "RECESO" in act: bg = (255, 243, 224)
-        pdf.sched_row([hora, act], sw, bg=bg)
-    pdf.ln(3)
+    # Math key times + materials
+    pdf.section_title("Horarios Clave")
+    pdf.bullet("-", "Almuerzo: 1:00 - 2:00 PM (cafeteria 2do piso)")
+    pdf.bullet("-", "Receso: 4:00 - 4:30 PM")
+    pdf.bullet("-", "Senalizacion: sigue las flechas ROJAS")
+    pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Guia docente de matematica (material impreso)")
+    pdf.bullet("-", "Computadora con materiales digitales")
 
     # ---------- TUTORIA ----------
     pdf.add_page()
@@ -444,29 +429,15 @@ def build_pdf():
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
-    # Tutoria schedule
-    pdf.section_title("Tu Horario")
-    sched_tut = [
-        ("8:00", "Llegada, registro y bolsa de bienvenida"),
-        ("8:00 - 8:45", "Desayuno de bienvenida"),
-        ("8:45", "Traslado a aulas (flechas VERDES)"),
-        ("9:00", "Inicio de sesiones de la manana"),
-        ("12:00 - 1:00", "ALMUERZO"),
-        ("1:00", "Sesiones de la tarde"),
-        ("3:00 - 3:30", "RECESO"),
-        ("3:30 - 5:30", "Continuacion de sesiones"),
-        ("5:30 (Dia 2)", "Clausura en auditorio + foto grupal"),
-        ("~6:10", "Bus de regreso a tu UGEL"),
-    ]
-    pdf.sched_row(["Hora", "Actividad"], sw, bold=True, bg=GREEN, text_color=WHITE)
-    for i, (hora, act) in enumerate(sched_tut):
-        bg = LIGHT_BG if i % 2 == 0 else WHITE
-        if "ALMUERZO" in act: bg = (232, 245, 233)
-        elif "RECESO" in act: bg = (255, 243, 224)
-        pdf.sched_row([hora, act], sw, bg=bg)
-    pdf.ln(3)
+    # Tutoria key times + materials
+    pdf.section_title("Horarios Clave")
+    pdf.bullet("-", "Almuerzo: 12:00 - 1:00 PM (cafeteria 2do piso)")
+    pdf.bullet("-", "Receso: 3:00 - 3:30 PM")
+    pdf.bullet("-", "Senalizacion: sigue las flechas VERDES")
+    pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Guia de tutoria (material impreso)")
+    pdf.bullet("-", "Computadora con materiales digitales")
 
     # ---------- PIP ----------
     pdf.add_page()
@@ -484,31 +455,15 @@ def build_pdf():
     pdf.add_photo(os.path.join(FOTOS, "biblioteca_3er_piso.png"),
                   "3er piso - Sala de Computadoras (tu aula de innovacion)", max_w=100)
 
-    # PIP schedule
-    if pdf.get_y() > 170:
-        pdf.add_page()
-    pdf.section_title("Tu Horario")
-    sched_pip = [
-        ("8:00", "Llegada, registro y bolsa de bienvenida"),
-        ("8:00 - 8:45", "Desayuno de bienvenida"),
-        ("8:45", "Traslado a aulas (flechas AZULES)"),
-        ("9:00", "Inicio de sesiones de la manana"),
-        ("12:00 - 1:00", "ALMUERZO"),
-        ("1:00", "Sesiones de la tarde"),
-        ("3:00 - 3:30", "RECESO"),
-        ("3:30 - 5:30", "Continuacion de sesiones"),
-        ("5:30 (Dia 2)", "Clausura en auditorio + foto grupal"),
-        ("~6:10", "Bus de regreso a tu UGEL"),
-    ]
-    pdf.sched_row(["Hora", "Actividad"], sw, bold=True, bg=BLUE, text_color=WHITE)
-    for i, (hora, act) in enumerate(sched_pip):
-        bg = LIGHT_BG if i % 2 == 0 else WHITE
-        if "ALMUERZO" in act: bg = (227, 242, 253)
-        elif "RECESO" in act: bg = (255, 243, 224)
-        pdf.sched_row([hora, act], sw, bg=bg)
-    pdf.ln(3)
+    # PIP key times + materials
+    pdf.section_title("Horarios Clave")
+    pdf.bullet("-", "Almuerzo: 12:00 - 1:00 PM (cafeteria 2do piso)")
+    pdf.bullet("-", "Receso: 3:00 - 3:30 PM")
+    pdf.bullet("-", "Senalizacion: sigue las flechas AZULES")
+    pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Los 5 Compromisos + Afiches (material impreso)")
+    pdf.bullet("-", "Computadora con materiales digitales")
 
     # ===== WHAT YOU RECEIVE & BRING =====
     pdf.add_page()
