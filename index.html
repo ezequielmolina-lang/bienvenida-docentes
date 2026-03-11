@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#f39300">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Bienvenido/a | Eligiendo Mi Camino</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fde3b1;
+            --yellow: #fdd026;
+            --orange: #f39300;
+            --deep-orange: #f75a00;
+            --dark: #242c32;
+            --light-bg: #fffbf0;
+            --blue: #1565C0;
+            --blue-light: #E3F2FD;
+            --green: #2E7D32;
+            --green-light: #E8F5E9;
+            --red: #C62828;
+            --red-light: #FFEBEE;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: linear-gradient(160deg, var(--cream) 0%, var(--yellow) 35%, var(--orange) 70%, var(--deep-orange) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.18) 0%, transparent 55%);
+            animation: shimmer 10s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(3%, 2%) scale(1.02); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+        }
+
+        .hero-mascot {
+            width: 160px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            padding: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.5rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .hero h1 .subtitle {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.4rem;
+            opacity: 0.8;
+        }
+
+        .hero h1 .program-name {
+            display: block;
+            background: linear-gradient(90deg, var(--dark), #3a464f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: rgba(36,44,50,0.75);
+            max-width: 420px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollPulse 2.5s ease-in-out infinite;
+            z-index: 2;
+            text-decoration: none;
+        }
+
+        .hero-scroll svg {
+            width: 32px; height: 32px;
+            fill: var(--dark);
+            opacity: 0.4;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
+        }
+
+        /* ============ SECTIONS ============ */
+        section { padding: 3rem 1.5rem; }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            text-align: center;
+            color: #777;
+            margin-bottom: 2rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .section-divider {
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange), var(--deep-orange));
+            border-radius: 2px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ============ ABOUT ============ */
+        .about {
+            background: var(--light-bg);
+            text-align: center;
+        }
+
+        .about-text {
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-partners {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .partner-badge {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #888;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            letter-spacing: 0.5px;
+        }
+
+        /* ============ VIDEO ============ */
+        .video-section {
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .video-section .section-title { color: #fff; }
+        .video-section .section-subtitle { color: rgba(255,255,255,0.5); }
+        .video-section .section-divider { background: var(--orange); }
+
+        .video-placeholder {
+            max-width: 560px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.04);
+            border: 2px dashed rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .video-placeholder .play-icon {
+            width: 64px; height: 64px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            box-shadow: 0 4px 20px rgba(243,147,0,0.4);
+        }
+
+        .video-placeholder .play-icon svg {
+            width: 28px; height: 28px;
+            fill: white;
+            margin-left: 3px;
+        }
+
+        .video-placeholder p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ============ SELECTORS ============ */
+        .selector-section { background: #fff; }
+
+        .field-label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        /* UGEL Select */
+        .ugel-wrapper {
+            max-width: 480px;
+            margin: 0 auto 2rem;
+        }
+
+        .ugel-select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            color: var(--dark);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%23999'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .ugel-select:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(243,147,0,0.15);
+        }
+
+        /* UGEL Info Card */
+        .ugel-info {
+            max-width: 480px;
+            margin: -0.5rem auto 2.5rem;
+            background: linear-gradient(135deg, var(--cream), #fff9ec);
+            border-radius: 16px;
+            padding: 1.3rem;
+            display: none;
+            animation: slideUp 0.35s ease;
+        }
+
+        .ugel-info.visible { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ugel-info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .ugel-info-row:last-child { margin-bottom: 0; }
+
+        .ugel-info-icon {
+            width: 34px; height: 34px; min-width: 34px;
+            background: var(--orange);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ugel-info-icon svg { width: 17px; height: 17px; fill: white; }
+
+        .ugel-info-text strong {
+            display: block;
+            font-size: 0.7rem;
+            color: #999;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1px;
+        }
+
+        .ugel-info-text span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .ugel-info-text .address {
+            display: block;
+            font-size: 0.78rem;
+            color: #999;
+            font-weight: 400;
+            margin-top: 1px;
+        }
+
+        /* Type Cards */
+        .type-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .type-card {
+            background: white;
+            border: 3px solid #eaeaea;
+            border-radius: 14px;
+            padding: 1.2rem 1.3rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .type-card:active { transform: scale(0.98); }
+
+        .type-card.selected {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .type-card[data-type="matematica"].selected { border-color: var(--red); background: var(--red-light); }
+        .type-card[data-type="tutoria"].selected { border-color: var(--green); background: var(--green-light); }
+        .type-card[data-type="pip"].selected { border-color: var(--blue); background: var(--blue-light); }
+
+        .type-dot {
+            width: 44px; height: 44px; min-width: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .type-dot svg { width: 22px; height: 22px; fill: white; }
+
+        .type-card[data-type="matematica"] .type-dot { background: var(--red); }
+        .type-card[data-type="tutoria"] .type-dot { background: var(--green); }
+        .type-card[data-type="pip"] .type-dot { background: var(--blue); }
+
+        .type-card-info h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1px;
+        }
+
+        .type-card-info p {
+            font-size: 0.75rem;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* ============ PERSONALIZED ============ */
+        .personalized {
+            display: none;
+        }
+
+        .personalized.visible {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* ============ DNI ALERT ============ */
+        .dni-alert {
+            background: linear-gradient(135deg, var(--deep-orange), var(--orange));
+            color: white;
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            max-width: 560px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dni-alert-emoji { font-size: 2.2rem; min-width: 40px; text-align: center; }
+
+        .dni-alert h3 { font-size: 1rem; font-weight: 800; margin-bottom: 0.2rem; }
+        .dni-alert p { font-size: 0.82rem; opacity: 0.92; line-height: 1.4; }
+
+        /* ============ STEPS ============ */
+        .steps {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            left: 19px; top: 44px; bottom: -1.5rem;
+            width: 2px;
+            background: #e8e8e8;
+        }
+
+        .step:last-child::after { display: none; }
+
+        .step-num {
+            width: 40px; height: 40px; min-width: 40px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: white;
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-body { flex: 1; padding-top: 0.4rem; }
+
+        .step-time {
+            display: inline-block;
+            background: var(--cream);
+            padding: 0.15rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--deep-orange);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-body h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .step-body p { font-size: 0.82rem; color: #666; line-height: 1.5; }
+
+        /* ============ PHOTO CARD ============ */
+        .photo-card {
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 0.8rem 0;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .photo-card figcaption {
+            background: var(--dark);
+            color: white;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* ============ ROOM CARD ============ */
+        .room-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            max-width: 560px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .room-card-head {
+            padding: 1.2rem 1.4rem;
+            color: white;
+        }
+
+        .room-card-head.red { background: var(--red); }
+        .room-card-head.green { background: var(--green); }
+        .room-card-head.blue { background: var(--blue); }
+
+        .room-card-head h3 { font-size: 1.05rem; font-weight: 700; }
+        .room-card-head p { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+        .room-card-body { padding: 1.3rem 1.4rem; }
+
+        .room-detail {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 0.9rem;
+            align-items: flex-start;
+        }
+
+        .room-detail:last-child { margin-bottom: 0; }
+
+        .room-detail-icon {
+            font-size: 1.1rem;
+            min-width: 26px;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .room-detail-text {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .room-detail-text strong { display: block; font-weight: 700; margin-bottom: 1px; }
+
+        /* ============ SCHEDULE TABLE ============ */
+        .schedule-wrap {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .schedule-mascot {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .schedule-mascot img { width: 55px; height: auto; }
+        .schedule-mascot strong { font-size: 0.85rem; display: block; }
+        .schedule-mascot p { font-size: 0.78rem; color: #999; }
+
+        .sched-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.82rem;
+            margin-bottom: 1rem;
+        }
+
+        .sched-table th {
+            background: var(--dark);
+            color: white;
+            padding: 0.7rem 0.8rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sched-table td {
+            padding: 0.65rem 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .sched-table tr:nth-child(even) td { background: #fafafa; }
+
+        .sched-table .meal td {
+            background: #fff3e0 !important;
+            font-weight: 700;
+            color: var(--deep-orange);
+        }
+
+        .sched-table .brk td {
+            background: #e8f5e9 !important;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .sched-table .closing td {
+            background: var(--cream) !important;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* ============ INFO CARD ============ */
+        .info-card {
+            max-width: 560px;
+            margin: 0 auto 1.2rem;
+            background: white;
+            border-radius: 16px;
+            padding: 1.3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-card-head {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card-icon {
+            width: 38px; height: 38px; min-width: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-card-icon svg { width: 19px; height: 19px; fill: white; }
+
+        .info-card-title { font-size: 1rem; font-weight: 700; }
+
+        /* ============ CHECKLIST ITEMS ============ */
+        .chk-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .chk-item:last-child { border-bottom: none; }
+
+        .chk-emoji {
+            width: 30px; height: 30px; min-width: 30px;
+            border-radius: 8px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .chk-text { font-size: 0.85rem; font-weight: 500; }
+        .chk-text small { display: block; font-size: 0.73rem; color: #aaa; font-weight: 400; }
+
+        /* ============ IMPORTANT BOX ============ */
+        .imp-box {
+            background: #fff8ee;
+            border-left: 4px solid var(--orange);
+            padding: 1rem 1.2rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1rem 0;
+        }
+
+        .imp-box strong {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--deep-orange);
+            margin-bottom: 0.2rem;
+        }
+
+        .imp-box p { font-size: 0.82rem; color: #666; line-height: 1.5; }
+
+        /* ============ BRING LIST ============ */
+        .bring-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .bring-item.critical {
+            background: #fff3e0;
+            border: 2px solid var(--orange);
+        }
+
+        .bring-item.normal { background: #f5f5f5; }
+
+        .bring-emoji {
+            width: 34px; height: 34px; min-width: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+
+        .bring-item.critical .bring-emoji { background: var(--deep-orange); }
+        .bring-item.normal .bring-emoji { background: #e0e0e0; }
+
+        .bring-text { font-size: 0.88rem; font-weight: 600; }
+        .bring-text small { display: block; font-size: 0.73rem; font-weight: 500; }
+        .bring-item.critical .bring-text small { color: var(--deep-orange); }
+        .bring-item.normal .bring-text small { color: #999; }
+
+        /* ============ PHOTO GALLERY ============ */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .photo-grid .wide {
+            grid-column: 1 / -1;
+            height: 180px;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-mascot { width: 50px; margin-bottom: 0.8rem; opacity: 0.7; }
+        .footer-title { font-weight: 800; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .footer p { font-size: 0.75rem; opacity: 0.45; margin-bottom: 0.3rem; }
+
+        /* ============ UTILITY ============ */
+        .hidden { display: none !important; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+
+        /* ============ RESPONSIVE ============ */
+        @media (min-width: 480px) {
+            .type-cards { grid-template-columns: 1fr 1fr 1fr; }
+            .type-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.3rem 0.8rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero-mascot { width: 200px; }
+            section { padding: 4rem 2rem; }
+            .section-title { font-size: 1.7rem; }
+            .photo-grid img { height: 180px; }
+            .photo-grid .wide { height: 260px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <img src="img/fullres_p4_0.png" alt="Gallito de las Rocas" class="hero-mascot">
+        <div class="hero-badge">Capacitacion Docente 2026</div>
+        <h1>
+            Bienvenido/a
+            <span class="subtitle">a la capacitacion de</span>
+            <span class="program-name">Eligiendo Mi Camino</span>
+        </h1>
+        <p class="hero-desc">
+            Dos dias de formacion para transformar la orientacion vocacional
+            y el aprendizaje de matematicas en tu escuela.
+        </p>
+        <div class="hero-date">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+            Marzo 2026 &middot; UPC Villa
+        </div>
+    </div>
+    <a href="#about" class="hero-scroll">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </a>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="about" id="about">
+    <div class="section-title">Eligiendo Mi Camino</div>
+    <div class="section-divider"></div>
+    <p class="about-text">
+        Un programa innovador de la <strong>DRELM</strong> y el <strong>Banco Mundial</strong>,
+        implementado junto a la <strong>UPC</strong>, que busca fortalecer las capacidades
+        de los docentes para guiar a los estudiantes de 5to de secundaria
+        en sus decisiones vocacionales y mejorar su aprendizaje de matematicas
+        con herramientas de inteligencia artificial.
+    </p>
+    <div class="about-partners">
+        <span class="partner-badge">DRELM</span>
+        <span class="partner-badge">Banco Mundial</span>
+        <span class="partner-badge">UPC</span>
+        <span class="partner-badge">AIDEA</span>
+        <span class="partner-badge">uDocz</span>
+    </div>
+</section>
+
+<!-- ========== VIDEO ========== -->
+<section class="video-section" id="video">
+    <div class="section-title">Mensaje de Bienvenida</div>
+    <p class="section-subtitle">Jaime Saavedra, Director Global de Educacion del Banco Mundial</p>
+    <div class="section-divider"></div>
+    <div style="max-width: 560px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe src="https://drive.google.com/file/d/1epEU4vQEa4nxbwcHkuKG1mz8KBtSpIfe/preview"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                    allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SELECTORS ========== -->
+<section class="selector-section" id="selectors">
+    <div class="section-title">Tu Informacion</div>
+    <p class="section-subtitle">Selecciona tu UGEL y tu tipo de docente para ver toda la informacion personalizada de tu capacitacion.</p>
+    <div class="section-divider"></div>
+
+    <!-- UGEL -->
+    <div class="ugel-wrapper">
+        <label class="field-label">Tu UGEL</label>
+        <select class="ugel-select" id="ugelSelect">
+            <option value="">Selecciona tu UGEL...</option>
+            <option value="1">UGEL 01 - San Juan de Miraflores</option>
+            <option value="2">UGEL 02 - Rimac</option>
+            <option value="3">UGEL 03 - Brena</option>
+            <option value="4">UGEL 04 - Comas</option>
+            <option value="5">UGEL 05 - San Juan de Lurigancho</option>
+            <option value="6">UGEL 06 - Ate</option>
+            <option value="7">UGEL 07 - San Borja</option>
+        </select>
+    </div>
+
+    <div class="ugel-info" id="ugelInfo">
+        <div class="ugel-info-row">
+            <div class="ugel-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+            </div>
+            <div class="ugel-info-text">
+                <strong>Tus fechas</strong>
+                <span id="ugelDates">-</span>
+            </div>
+        </div>
+        <div class="ugel-info-row">
+            <div class="ugel-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4S4 2.5 4 6v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg>
+            </div>
+            <div class="ugel-info-text">
+                <strong>Punto de encuentro del bus</strong>
+                <span id="ugelBus">-</span>
+            </div>
+        </div>
+        <div class="ugel-info-row">
+            <div class="ugel-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            </div>
+            <div class="ugel-info-text">
+                <strong>Hora de salida del bus</strong>
+                <span>7:00 AM desde la sede de tu UGEL</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Type -->
+    <label class="field-label" style="margin-top: 1rem;">Tipo de docente</label>
+    <div class="type-cards" id="typeCards">
+        <div class="type-card" data-type="matematica" onclick="selectType('matematica')">
+            <div class="type-dot">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"/></svg>
+            </div>
+            <div class="type-card-info">
+                <h3>Matematica</h3>
+                <p>Gafete ROJO</p>
+            </div>
+        </div>
+        <div class="type-card" data-type="tutoria" onclick="selectType('tutoria')">
+            <div class="type-dot">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            </div>
+            <div class="type-card-info">
+                <h3>Tutoria / OV</h3>
+                <p>Gafete VERDE</p>
+            </div>
+        </div>
+        <div class="type-card" data-type="pip" onclick="selectType('pip')">
+            <div class="type-dot">
+                <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+            </div>
+            <div class="type-card-info">
+                <h3>Innovacion (PIP)</h3>
+                <p>Gafete AZUL</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PERSONALIZED CONTENT ========== -->
+<div class="personalized" id="personalizedContent">
+
+    <!-- DNI ALERT -->
+    <section style="background: var(--light-bg); padding: 2rem 1.5rem;">
+        <div class="dni-alert">
+            <div class="dni-alert-emoji">🪪</div>
+            <div>
+                <h3>No olvides tu DNI</h3>
+                <p>Es obligatorio para ingresar al campus de la UPC. El personal de seguridad lo verificara en la entrada.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARRIVAL FLOW -->
+    <section style="background: #fff;">
+        <div class="section-title">Tu Dia en la UPC</div>
+        <p class="section-subtitle">Paso a paso desde que sales de tu UGEL hasta que termina la jornada</p>
+        <div class="section-divider"></div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <div class="step-time">7:00 AM</div>
+                    <h4>Salida del bus desde tu UGEL</h4>
+                    <p>El bus sale puntual a las 7:00 AM desde la sede de tu UGEL. El viaje dura entre 45 y 90 minutos dependiendo de tu ubicacion.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <div class="step-time">~8:00 AM</div>
+                    <h4>Llegada a UPC Campus Villa</h4>
+                    <p>Al llegar, el personal de seguridad verificara tu <strong>DNI</strong>. Ten tu documento listo.</p>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/entrada_upc.jpeg" alt="Entrada UPC Villa" loading="lazy">
+                        <figcaption>Entrada principal - UPC Campus Villa, Chorrillos</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <div class="step-time">8:00 AM</div>
+                    <h4>Registro y bienvenida</h4>
+                    <p>En la mesa de registro recibiras tu <strong>gafete de color</strong> con tu nombre y aula asignada, un mini mapa del campus y tu <strong>bolsa de bienvenida</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                    <div class="step-time">8:00 - 8:45 AM</div>
+                    <h4>Desayuno</h4>
+                    <p>Sube a la cafeteria del 2do piso para el desayuno de bienvenida. Servicio tipo buffet.</p>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/cafeteria_2do_piso.jpeg" alt="Cafeteria UPC" loading="lazy">
+                        <figcaption>Cafeteria 2do piso - desayunos, almuerzos y recesos</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-body">
+                    <div class="step-time">8:45 AM</div>
+                    <h4>Traslado a tu aula</h4>
+                    <p>Sigue la senalizacion de <strong>tu color</strong> desde la cafeteria hasta tu aula. Hay flechas en el piso y paredes para guiarte.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-body">
+                    <div class="step-time">9:00 AM</div>
+                    <h4>Inicio de la capacitacion</h4>
+                    <p>En tu puesto encontraras un cuaderno, lapiceros y la guia de tu curso. Las sesiones comienzan a las 9:00 AM.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">7</div>
+                <div class="step-body">
+                    <div class="step-time" id="lunchTime">12:00 - 1:00 PM</div>
+                    <h4>Almuerzo</h4>
+                    <p>Almuerzo en la cafeteria del 2do piso. Los horarios son escalonados por grupo para evitar congestion.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">8</div>
+                <div class="step-body">
+                    <div class="step-time">Dia 2 - 5:30 PM</div>
+                    <h4>Clausura</h4>
+                    <p>Palabras finales y foto grupal en el auditorio. Luego el bus te lleva de regreso a tu UGEL (~6:10 PM).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOM ASSIGNMENT -->
+    <section style="background: var(--light-bg);" id="roomSection">
+        <div class="section-title">Tu Aula</div>
+        <p class="section-subtitle">Donde tendras tus sesiones de capacitacion</p>
+        <div class="section-divider"></div>
+
+        <!-- MATH -->
+        <div class="room-content" data-for="matematica">
+            <div class="room-card">
+                <div class="room-card-head red">
+                    <div>
+                        <h3>Laboratorios de PC</h3>
+                        <p>Lab PC 1, Lab PC 2 o Lab PC 3 (segun tu asignacion)</p>
+                    </div>
+                </div>
+                <div class="room-card-body">
+                    <div class="room-detail">
+                        <div class="room-detail-icon">📍</div>
+                        <div class="room-detail-text">
+                            <strong>Ubicacion</strong>
+                            Area de laboratorios de computo
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">👥</div>
+                        <div class="room-detail-text">
+                            <strong>Capacidad</strong>
+                            ~35 personas por laboratorio (3 labs en total)
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">🗺️</div>
+                        <div class="room-detail-text">
+                            <strong>Como llegar</strong>
+                            Desde la cafeteria, sigue las flechas <strong style="color:var(--red);">ROJAS</strong> hacia los labs de computo
+                        </div>
+                    </div>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/camino_a_labs.png" alt="Camino a los labs" loading="lazy">
+                        <figcaption>Camino hacia los laboratorios de computo</figcaption>
+                    </figure>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/tunel_edificio_h.png" alt="Tunel edificio H" loading="lazy">
+                        <figcaption>Tunel hacia el edificio de laboratorios</figcaption>
+                    </figure>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/aulas_h315_h316.png" alt="Labs de PC" loading="lazy">
+                        <figcaption>Laboratorios de PC - tu aula de matematica</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIA -->
+        <div class="room-content" data-for="tutoria">
+            <div class="room-card">
+                <div class="room-card-head green">
+                    <div>
+                        <h3>Mac Lab 2 + Salas A y B</h3>
+                        <p>Biblioteca, 2do piso</p>
+                    </div>
+                </div>
+                <div class="room-card-body">
+                    <div class="room-detail">
+                        <div class="room-detail-icon">📍</div>
+                        <div class="room-detail-text">
+                            <strong>Ubicacion</strong>
+                            Biblioteca, 2do piso (cerca de la cafeteria)
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">👥</div>
+                        <div class="room-detail-text">
+                            <strong>Capacidad</strong>
+                            Mac Lab 2 (~35 personas) + Sala A (~20) + Sala B (~20)
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">🗺️</div>
+                        <div class="room-detail-text">
+                            <strong>Como llegar</strong>
+                            Desde la cafeteria, sigue las flechas <strong style="color:var(--green);">VERDES</strong> hacia la biblioteca
+                        </div>
+                    </div>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/ruta_salas_tutoria.png" alt="Ruta a salas de tutoria" loading="lazy">
+                        <figcaption>Ruta hacia las salas de tutoria en la biblioteca</figcaption>
+                    </figure>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/mac_labs.png" alt="Mac Lab" loading="lazy">
+                        <figcaption>Mac Lab - sesiones plenarias y practica con tecnologia</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIP -->
+        <div class="room-content" data-for="pip">
+            <div class="room-card">
+                <div class="room-card-head blue">
+                    <div>
+                        <h3>Mac Lab Grande</h3>
+                        <p>Biblioteca, 2do piso</p>
+                    </div>
+                </div>
+                <div class="room-card-body">
+                    <div class="room-detail">
+                        <div class="room-detail-icon">📍</div>
+                        <div class="room-detail-text">
+                            <strong>Ubicacion</strong>
+                            Biblioteca, 2do piso
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">👥</div>
+                        <div class="room-detail-text">
+                            <strong>Capacidad</strong>
+                            ~50 personas
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <div class="room-detail-icon">🗺️</div>
+                        <div class="room-detail-text">
+                            <strong>Como llegar</strong>
+                            Desde la cafeteria, sigue las flechas <strong style="color:var(--blue);">AZULES</strong> hacia la biblioteca, Mac Lab Grande
+                        </div>
+                    </div>
+                    <figure class="photo-card">
+                        <img src="campus_fotos/mac_labs.png" alt="Mac Lab Grande" loading="lazy">
+                        <figcaption>Mac Lab Grande - tu aula de innovacion pedagogica</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section style="background: #fff;" id="scheduleSection">
+        <div class="section-title">Tu Horario</div>
+        <p class="section-subtitle">Horario completo de tus dos dias de capacitacion</p>
+        <div class="section-divider"></div>
+
+        <div class="schedule-wrap">
+            <div class="schedule-mascot">
+                <img src="img/fullres_p4_5.png" alt="Gallito leyendo" loading="lazy">
+                <div>
+                    <strong>Dia 1 y Dia 2</strong>
+                    <p>El contenido cambia cada dia. Ambos son obligatorios.</p>
+                </div>
+            </div>
+
+            <!-- PIP + Tutoria schedule -->
+            <div class="schedule-content" data-for="tutoria pip">
+                <table class="sched-table">
+                    <thead><tr><th>Hora</th><th>Actividad</th></tr></thead>
+                    <tbody>
+                        <tr><td>8:00</td><td>Llegada, registro y bolsa de bienvenida</td></tr>
+                        <tr><td>8:00 - 8:45</td><td>Desayuno de bienvenida</td></tr>
+                        <tr><td>8:45</td><td>Traslado a aulas (senalizacion de colores)</td></tr>
+                        <tr><td>9:00</td><td>Inicio de sesiones de la manana</td></tr>
+                        <tr class="meal"><td>12:00 - 1:00</td><td>ALMUERZO</td></tr>
+                        <tr><td>1:00</td><td>Sesiones de la tarde</td></tr>
+                        <tr class="brk"><td>3:00 - 3:30</td><td>RECESO</td></tr>
+                        <tr><td>3:30 - 5:30</td><td>Continuacion de sesiones</td></tr>
+                        <tr class="closing"><td>5:30 (Dia 2)</td><td>Clausura en auditorio + foto grupal</td></tr>
+                        <tr><td>~6:10</td><td>Bus de regreso a tu UGEL</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Math schedule -->
+            <div class="schedule-content" data-for="matematica">
+                <table class="sched-table">
+                    <thead><tr><th>Hora</th><th>Actividad</th></tr></thead>
+                    <tbody>
+                        <tr><td>8:00</td><td>Llegada, registro y bolsa de bienvenida</td></tr>
+                        <tr><td>8:00 - 8:45</td><td>Desayuno de bienvenida</td></tr>
+                        <tr><td>8:45</td><td>Traslado a aulas (senalizacion de colores)</td></tr>
+                        <tr><td>9:00</td><td>Inicio de sesiones de la manana</td></tr>
+                        <tr class="meal"><td>1:00 - 2:00</td><td>ALMUERZO</td></tr>
+                        <tr><td>2:00</td><td>Sesiones de la tarde</td></tr>
+                        <tr class="brk"><td>4:00 - 4:30</td><td>RECESO</td></tr>
+                        <tr><td>4:30 - 5:30</td><td>Continuacion de sesiones</td></tr>
+                        <tr class="closing"><td>5:30 (Dia 2)</td><td>Clausura en auditorio + foto grupal</td></tr>
+                        <tr><td>~6:10</td><td>Bus de regreso a tu UGEL</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="imp-box mt-1">
+                <strong>Horarios de almuerzo escalonados</strong>
+                <p>PIP y Tutoria almuerzan de 12:00 a 1:00 PM. Matematica almuerza de 1:00 a 2:00 PM. Esto evita congestion en la cafeteria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU'LL RECEIVE -->
+    <section style="background: var(--light-bg);">
+        <div class="section-title">Que Recibiras</div>
+        <p class="section-subtitle">Todo el material necesario te sera entregado</p>
+        <div class="section-divider"></div>
+
+        <div class="info-card">
+            <div class="info-card-head">
+                <div class="info-card-icon" style="background: var(--orange);">
+                    <svg viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/></svg>
+                </div>
+                <div class="info-card-title">En el registro (bolsa de bienvenida)</div>
+            </div>
+            <div class="chk-item"><div class="chk-emoji">👜</div><div class="chk-text">Bolsa del programa</div></div>
+            <div class="chk-item"><div class="chk-emoji">🔑</div><div class="chk-text">Llavero</div></div>
+            <div class="chk-item"><div class="chk-emoji">⭐</div><div class="chk-text">Plancha de stickers</div></div>
+            <div class="chk-item"><div class="chk-emoji">🥤</div><div class="chk-text">Tomatodo</div></div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-head">
+                <div class="info-card-icon" style="background: var(--deep-orange);">
+                    <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+                </div>
+                <div class="info-card-title">En tu puesto (dentro del aula)</div>
+            </div>
+            <div class="chk-item"><div class="chk-emoji">📓</div><div class="chk-text">Cuaderno</div></div>
+            <div class="chk-item"><div class="chk-emoji">🖊️</div><div class="chk-text">Lapiceros</div></div>
+            <div class="chk-item mat-only" data-for="matematica">
+                <div class="chk-emoji">📖</div>
+                <div class="chk-text">
+                    Guia docente de matematica
+                    <small>Material impreso con el contenido de la capacitacion</small>
+                </div>
+            </div>
+            <div class="chk-item mat-only" data-for="tutoria">
+                <div class="chk-emoji">📖</div>
+                <div class="chk-text">
+                    Guia de tutoria
+                    <small>Material impreso con el contenido de la capacitacion</small>
+                </div>
+            </div>
+            <div class="chk-item mat-only" data-for="pip">
+                <div class="chk-emoji">📖</div>
+                <div class="chk-text">
+                    Los 5 Compromisos + Afiches
+                    <small>Material impreso para tu rol de coordinador</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT TO BRING -->
+    <section style="background: #fff;">
+        <div class="section-title">Que Necesitas Traer</div>
+        <div class="section-divider"></div>
+
+        <div style="max-width: 560px; margin: 0 auto;">
+            <div class="bring-item critical">
+                <div class="bring-emoji">🪪</div>
+                <div class="bring-text">
+                    DNI (obligatorio)
+                    <small>Sin DNI no podras ingresar al campus</small>
+                </div>
+            </div>
+            <div class="bring-item normal">
+                <div class="bring-emoji">👔</div>
+                <div class="bring-text">
+                    Ropa comoda
+                    <small>Dos dias de actividades practicas</small>
+                </div>
+            </div>
+            <div class="bring-item normal">
+                <div class="bring-emoji">📱</div>
+                <div class="bring-text">
+                    Celular con carga
+                    <small>Para acceder a materiales digitales</small>
+                </div>
+            </div>
+
+            <div class="imp-box mt-2">
+                <strong>Todo lo demas lo proporcionamos nosotros</strong>
+                <p>Desayuno, almuerzo, receso, materiales de trabajo, cuaderno, lapiceros y el transporte de ida y vuelta estan incluidos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAMPUS PHOTOS -->
+    <section style="background: var(--light-bg);">
+        <div class="section-title">Conoce el Campus</div>
+        <p class="section-subtitle">UPC Campus Villa, Chorrillos, Lima</p>
+        <div class="section-divider"></div>
+
+        <div class="photo-grid">
+            <img src="campus_fotos/entrada_upc.jpeg" alt="Entrada UPC" class="wide" loading="lazy">
+            <img src="campus_fotos/cafeteria_2do_piso.jpeg" alt="Cafeteria" loading="lazy">
+            <img src="campus_fotos/zona_lounge.jpeg" alt="Zona lounge" loading="lazy">
+            <img src="campus_fotos/mac_labs.png" alt="Mac Labs" loading="lazy">
+            <img src="campus_fotos/aulas_h315_h316.png" alt="Labs de PC" loading="lazy">
+        </div>
+    </section>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <img src="img/fullres_p3_0.png" alt="Gallito de las Rocas" class="footer-mascot">
+    <div class="footer-title">Eligiendo Mi Camino</div>
+    <p>DRELM &middot; Banco Mundial &middot; UPC</p>
+    <p style="margin-top: 1rem;">Capacitacion Docente &middot; Marzo 2026</p>
+    <p>UPC Campus Villa, Chorrillos, Lima</p>
+</footer>
+
+<script>
+// ==================== DATA ====================
+const ugelData = {
+    '1': {
+        dates: 'Jueves 12 y Viernes 13 de marzo',
+        grupo: 'Grupo I',
+        bus: 'Sede UGEL 01 - San Juan de Miraflores',
+        address: 'Los s/n, Los Angeles, San Juan de Miraflores'
+    },
+    '2': {
+        dates: 'Jueves 12 y Viernes 13 de marzo',
+        grupo: 'Grupo I',
+        bus: 'Sede UGEL 02 - Rimac',
+        address: 'Jr. Alfonso Bernal Montoya Mz B1, San Martin de Porres'
+    },
+    '3': {
+        dates: 'Jueves 12 y Viernes 13 de marzo',
+        grupo: 'Grupo I',
+        bus: 'Sede UGEL 03 - Brena',
+        address: 'Av. Iquitos 918, La Victoria'
+    },
+    '4': {
+        dates: 'Jueves 12 y Viernes 13 de marzo',
+        grupo: 'Grupo I',
+        bus: 'Sede UGEL 04 - Comas',
+        address: 'Av. Carabayllo 561, Comas'
+    },
+    '5': {
+        dates: 'Fechas por confirmar',
+        grupo: 'Grupo II',
+        bus: 'Sede UGEL 05 - San Juan de Lurigancho',
+        address: 'Av. Peru s/n Urb, San Juan de Lurigancho'
+    },
+    '6': {
+        dates: 'Fechas por confirmar',
+        grupo: 'Grupo II',
+        bus: 'Sede UGEL 06 - Ate',
+        address: 'Av. La Molina 905, La Molina'
+    },
+    '7': {
+        dates: 'Fechas por confirmar',
+        grupo: 'Grupo II',
+        bus: 'Sede UGEL 07 - San Borja',
+        address: 'Ca. Jose Alvarez Calderon 492, San Borja'
+    }
+};
+
+let selectedType = null;
+let selectedUgel = null;
+
+// ==================== UGEL ====================
+document.getElementById('ugelSelect').addEventListener('change', function() {
+    selectedUgel = this.value;
+    const info = document.getElementById('ugelInfo');
+
+    if (selectedUgel && ugelData[selectedUgel]) {
+        const d = ugelData[selectedUgel];
+        document.getElementById('ugelDates').textContent = d.dates + ' (' + d.grupo + ')';
+        document.getElementById('ugelBus').innerHTML = d.bus + '<span class="address">' + d.address + '</span>';
+        info.classList.add('visible');
+    } else {
+        info.classList.remove('visible');
+    }
+});
+
+// ==================== TYPE ====================
+function selectType(type) {
+    selectedType = type;
+
+    // Toggle card styles
+    document.querySelectorAll('.type-card').forEach(function(c) {
+        c.classList.toggle('selected', c.dataset.type === type);
+    });
+
+    // Update lunch time in steps
+    var lt = document.getElementById('lunchTime');
+    lt.textContent = type === 'matematica' ? '1:00 - 2:00 PM' : '12:00 - 1:00 PM';
+
+    // Show/hide room content
+    document.querySelectorAll('.room-content').forEach(function(el) {
+        el.style.display = el.dataset.for === type ? 'block' : 'none';
+    });
+
+    // Show/hide schedule
+    document.querySelectorAll('.schedule-content').forEach(function(el) {
+        var types = el.dataset.for.split(' ');
+        el.style.display = types.indexOf(type) !== -1 ? 'block' : 'none';
+    });
+
+    // Show/hide material-specific items
+    document.querySelectorAll('.mat-only').forEach(function(el) {
+        el.style.display = el.dataset.for === type ? 'flex' : 'none';
+    });
+
+    // Show personalized content
+    var content = document.getElementById('personalizedContent');
+    if (!content.classList.contains('visible')) {
+        content.classList.add('visible');
+        setTimeout(function() {
+            content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+
+// ==================== INIT ====================
+document.querySelectorAll('.room-content, .schedule-content, .mat-only').forEach(function(el) {
+    el.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
