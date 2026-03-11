@@ -192,24 +192,29 @@ def build_pdf():
     pdf.set_text_color(*DARK)
     pdf.ln(6)
 
-    # Welcome app link - prominent box
+    # Welcome app link - prominent box (super communicator style)
     app_link = "https://ezequielmolina-lang.github.io/bienvenida-docentes/"
     pdf.set_fill_color(*CREAM)
     pdf.set_draw_color(*ORANGE)
     pdf.set_line_width(0.8)
     x, y = pdf.get_x(), pdf.get_y()
     w_box = pdf.w - pdf.l_margin - pdf.r_margin
-    pdf.rect(x, y, w_box, 20, style="DF")
+    pdf.rect(x, y, w_box, 28, style="DF")
     pdf.set_xy(x + 4, y + 3)
-    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(*DEEP_ORANGE)
-    pdf.cell(w_box - 8, 6, "Tu paquete de bienvenida digital", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 8, 6, "Guarda este link en tu celular", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x + 4)
+    pdf.set_font("Helvetica", "", 8)
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(w_box - 8, 5, "Tu bienvenida digital con horarios, aulas, mapas y todo lo que necesitas.",
+             align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 4)
     pdf.set_font("Helvetica", "U", 9)
     pdf.set_text_color(*BLUE)
-    pdf.cell(w_box - 8, 6, "Abre aqui toda la informacion personalizada de tu capacitacion",
+    pdf.cell(w_box - 8, 6, "Abrir mi paquete de bienvenida",
              align="C", link=app_link, new_x="LMARGIN", new_y="NEXT")
-    pdf.set_y(y + 24)
+    pdf.set_y(y + 32)
     pdf.set_draw_color(0, 0, 0)
     pdf.set_line_width(0.2)
     pdf.set_text_color(*DARK)
@@ -367,18 +372,18 @@ def build_pdf():
     pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas ROJAS hacia los labs")
     pdf.ln(3)
 
-    # Two photos side by side
+    # Two photos side by side (both landscape)
     y_p = pdf.get_y()
-    camino = os.path.join(FOTOS, "camino_a_labs.png")
+    tunel = os.path.join(FOTOS, "tunel_edificio_h.png")
     labs = os.path.join(FOTOS, "aulas_h315_h316.png")
-    if os.path.exists(camino):
-        pdf.image(camino, x=x_left, y=y_p, w=photo_w)
+    if os.path.exists(tunel):
+        pdf.image(tunel, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(labs):
         pdf.image(labs, x=x_right, y=y_p, w=photo_w)
-    pdf.set_y(y_p + 55)
+    pdf.set_y(y_p + 50)
     pdf.set_font("Helvetica", "I", 7)
     pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Camino a los laboratorios", align="C", new_x="END")
+    pdf.cell(photo_w, 4, "Tunel hacia los laboratorios", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
     pdf.cell(photo_w, 4, "Labs de PC - tu aula", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
@@ -386,7 +391,7 @@ def build_pdf():
 
     # Math schedule
     pdf.section_title("Tu Horario")
-    sw = [26, 154]
+    sw = [28, 150]
     sched_math = [
         ("8:00", "Llegada, registro y bolsa de bienvenida"),
         ("8:00 - 8:45", "Desayuno de bienvenida"),
@@ -556,6 +561,39 @@ def build_pdf():
         "Desayuno, almuerzo, receso, materiales de trabajo, cuaderno, "
         "lapiceros y el transporte de ida y vuelta estan incluidos."
     )
+
+    # ===== CERTIFICATION =====
+    pdf.ln(5)
+    pdf.section_title("Certificacion")
+
+    # Cert box - green themed
+    pdf.set_fill_color(232, 245, 233)
+    pdf.set_draw_color(*GREEN)
+    pdf.set_line_width(0.8)
+    x, y = pdf.get_x(), pdf.get_y()
+    w_box = pdf.w - pdf.l_margin - pdf.r_margin
+    pdf.rect(x, y, w_box, 30, style="DF")
+    pdf.set_xy(x + 4, y + 3)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_text_color(*GREEN)
+    pdf.cell(w_box - 8, 6, "Certificado oficial de la DRELM y la UPC", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x + 4)
+    pdf.set_font("Helvetica", "", 9)
+    pdf.set_text_color(*DARK)
+    pdf.multi_cell(w_box - 8, 5,
+        "Al completar los dos dias de capacitacion recibiras un certificado "
+        "emitido por la DRELM y la UPC, valido para tu escalafon docente.",
+        align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_y(y + 34)
+    pdf.set_draw_color(0, 0, 0)
+    pdf.set_line_width(0.2)
+
+    pdf.ln(2)
+    pdf.set_font("Helvetica", "B", 8)
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(0, 5, "* La asistencia a AMBOS dias es obligatoria para recibir el certificado.",
+             new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
 
     # ===== CAMPUS PHOTOS =====
     pdf.add_page()
