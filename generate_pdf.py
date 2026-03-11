@@ -190,7 +190,44 @@ def build_pdf():
     vid_link = "https://drive.google.com/file/d/1epEU4vQEa4nxbwcHkuKG1mz8KBtSpIfe/view"
     pdf.cell(0, 5, "Ver video de bienvenida", align="C", link=vid_link, new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
-    pdf.ln(6)
+    pdf.ln(5)
+
+    # ---- DATES BLOCK - prominent on cover ----
+    x = pdf.get_x()
+    w_box = pdf.w - pdf.l_margin - pdf.r_margin
+    half = w_box / 2 - 2
+
+    # Grupo I box (orange)
+    y_dates = pdf.get_y()
+    pdf.set_fill_color(*ORANGE)
+    pdf.rect(x, y_dates, half, 24, style="F")
+    pdf.set_xy(x + 3, y_dates + 2)
+    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_text_color(*WHITE)
+    pdf.cell(half - 6, 6, "UGEL 01, 02, 03, 04", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x + 3)
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(half - 6, 7, "Jueves 12 y Viernes 13", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x + 3)
+    pdf.set_font("Helvetica", "", 8)
+    pdf.cell(half - 6, 5, "de marzo 2026", align="C", new_x="LMARGIN", new_y="NEXT")
+
+    # Grupo II box (gray)
+    x2 = x + half + 4
+    pdf.set_fill_color(160, 160, 160)
+    pdf.rect(x2, y_dates, half, 24, style="F")
+    pdf.set_xy(x2 + 3, y_dates + 2)
+    pdf.set_font("Helvetica", "B", 10)
+    pdf.cell(half - 6, 6, "UGEL 05, 06, 07", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x2 + 3)
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(half - 6, 7, "Fechas por confirmar", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x2 + 3)
+    pdf.set_font("Helvetica", "", 8)
+    pdf.cell(half - 6, 5, "proximamente", align="C", new_x="LMARGIN", new_y="NEXT")
+
+    pdf.set_text_color(*DARK)
+    pdf.set_y(y_dates + 28)
 
     # Welcome app link - prominent box (super communicator style)
     app_link = "https://ezequielmolina-lang.github.io/bienvenida-docentes/"
