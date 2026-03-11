@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Equipo — Eligiendo Mi Camino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #f39300;
+            --deep-orange: #f75a00;
+            --cream: #fde3b1;
+            --light-bg: #fffbf0;
+            --dark: #242c32;
+            --red: #C62828;
+            --green: #2E7D32;
+            --blue: #1565C0;
+            --gray-100: #f7f7f7;
+            --gray-200: #e5e5e5;
+            --gray-400: #a3a3a3;
+            --gray-600: #525252;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light-bg);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* ===== STICKY HEADER ===== */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--dark);
+            color: white;
+            padding: 12px 16px 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .header-title {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .header-subtitle {
+            font-size: 11px;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        /* Day toggle */
+        .day-toggle {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .day-btn {
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.2s;
+        }
+        .day-btn.active {
+            background: var(--orange);
+            color: white;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .progress-bar-bg {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), #fdd026);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+        .progress-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--orange);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        /* ===== TEAM BAR ===== */
+        .team-bar {
+            display: flex;
+            gap: 6px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .team-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            color: white;
+        }
+
+        /* ===== TIME BLOCKS ===== */
+        .blocks-container {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .time-block {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+        .time-block.current {
+            border-left-color: var(--orange);
+            box-shadow: 0 2px 12px rgba(243,147,0,0.2);
+        }
+        .time-block.completed-block {
+            opacity: 0.6;
+        }
+
+        .block-header {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .block-time {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--deep-orange);
+            min-width: 70px;
+        }
+        .block-emoji {
+            font-size: 20px;
+        }
+        .block-title {
+            font-size: 13px;
+            font-weight: 700;
+            flex: 1;
+        }
+        .block-count {
+            font-size: 10px;
+            font-weight: 700;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .block-count.all-done {
+            background: #dcfce7;
+            color: var(--green);
+        }
+        .block-chevron {
+            font-size: 14px;
+            color: var(--gray-400);
+            transition: transform 0.2s;
+        }
+        .time-block.open .block-chevron {
+            transform: rotate(90deg);
+        }
+
+        .block-body {
+            display: none;
+            padding: 0 14px 14px;
+        }
+        .time-block.open .block-body {
+            display: block;
+        }
+
+        /* Info callout (staggered times) */
+        .info-callout {
+            background: #fef3c7;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        .info-callout strong {
+            color: var(--deep-orange);
+        }
+        .info-callout .red-tag { color: var(--red); font-weight: 700; }
+        .info-callout .green-tag { color: var(--green); font-weight: 700; }
+        .info-callout .blue-tag { color: var(--blue); font-weight: 700; }
+
+        /* Task items */
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        .task-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid var(--gray-200);
+            flex-shrink: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .task-checkbox.checked {
+            background: var(--green);
+            border-color: var(--green);
+        }
+        .task-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .task-text {
+            font-size: 13px;
+            line-height: 1.5;
+            flex: 1;
+        }
+        .task-item.done .task-text {
+            text-decoration: line-through;
+            color: var(--gray-400);
+        }
+
+        /* Sub-items (indented) */
+        .task-sub {
+            padding-left: 18px;
+        }
+        .task-sub .task-text {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        /* Tips */
+        .tip {
+            background: #fef9ee;
+            border-left: 3px solid var(--orange);
+            padding: 8px 10px;
+            margin-top: 8px;
+            border-radius: 0 6px 6px 0;
+            font-size: 11px;
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+        .tip::before {
+            content: '💡 ';
+        }
+
+        /* Day 2 only badge */
+        .day2-only {
+            display: inline-block;
+            background: #dbeafe;
+            color: var(--blue);
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        /* ===== AULAS REFERENCE ===== */
+        .aulas-ref {
+            background: white;
+            border-radius: 12px;
+            margin: 0 12px 12px;
+            padding: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .aulas-ref h3 {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        .aula-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            font-size: 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .aula-row:last-child { border-bottom: none; }
+        .aula-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .aula-name { font-weight: 600; flex: 1; }
+        .aula-loc { color: var(--gray-600); font-size: 11px; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 20px 16px;
+            font-size: 10px;
+            color: var(--gray-400);
+        }
+
+        /* Reset all button */
+        .reset-btn {
+            display: block;
+            margin: 0 auto 10px;
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        @media (min-width: 480px) {
+            .blocks-container { padding: 16px 24px; }
+            .block-header { padding: 14px 18px; }
+            .block-body { padding: 0 18px 18px; }
+            .block-time { font-size: 14px; }
+            .block-title { font-size: 14px; }
+            .task-text { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== STICKY HEADER ===== -->
+<div class="sticky-header">
+    <div class="header-top">
+        <div>
+            <div class="header-title">✅ Checklist Equipo EMC</div>
+            <div class="header-subtitle">UPC Campus Villa · ~230 docentes · UGEL 01-04</div>
+        </div>
+        <div class="day-toggle">
+            <button class="day-btn active" onclick="switchDay(1)">Jue 12</button>
+            <button class="day-btn" onclick="switchDay(2)">Vie 13</button>
+        </div>
+    </div>
+    <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+</div>
+
+<!-- ===== TEAM BAR ===== -->
+<div class="team-bar">
+    <span class="team-badge" style="background:#4f46e5">EZ Ezequiel</span>
+    <span class="team-badge" style="background:#0d9488">CA Camu</span>
+    <span class="team-badge" style="background:#db2777">SA Sara</span>
+    <span class="team-badge" style="background:#d97706">GI Gilmer</span>
+    <span class="team-badge" style="background:#7c3aed">CR Carolina</span>
+    <span class="team-badge" style="background:#059669">MA M. Andreina</span>
+</div>
+
+<!-- ===== BLOCKS ===== -->
+<div class="blocks-container" id="blocksContainer"></div>
+
+<!-- ===== AULAS REFERENCE ===== -->
+<div class="aulas-ref">
+    <h3>📍 Referencia Rapida — Aulas</h3>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--blue)"></div>
+        <div class="aula-name">Mac Lab Grande — PIP</div>
+        <div class="aula-loc">Biblioteca 3er piso</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--green)"></div>
+        <div class="aula-name">Mac Lab 2 — Tutoria</div>
+        <div class="aula-loc">Biblioteca 2do piso</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--green)"></div>
+        <div class="aula-name">Sala A — Tutoria</div>
+        <div class="aula-loc">Biblioteca 2do piso</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--green)"></div>
+        <div class="aula-name">Sala B — Tutoria</div>
+        <div class="aula-loc">Biblioteca 2do piso</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--red)"></div>
+        <div class="aula-name">Lab PC 1 — Matematica</div>
+        <div class="aula-loc">Edificio H, labs computo</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--red)"></div>
+        <div class="aula-name">Lab PC 2 — Matematica</div>
+        <div class="aula-loc">Edificio H, labs computo</div>
+    </div>
+    <div class="aula-row">
+        <div class="aula-color" style="background:var(--red)"></div>
+        <div class="aula-name">Lab PC 3 — Matematica</div>
+        <div class="aula-loc">Edificio H, labs computo</div>
+    </div>
+</div>
+
+<div class="footer">
+    <button class="reset-btn" onclick="resetDay()">🔄 Reiniciar checklist del dia</button>
+    Eligiendo Mi Camino · DRELM · Banco Mundial · UPC
+</div>
+
+<script>
+// ===== DATA =====
+const blocks = [
+    {
+        id: 'prep',
+        time: '7:00',
+        timeEnd: '7:45',
+        emoji: '🔧',
+        title: 'Preparacion y setup',
+        hour: 7,
+        tasks: [
+            { id: 'prep1', text: 'Encender PCs y proyectores en las 7 aulas' },
+            { id: 'prep2', text: 'Verificar materiales en cada puesto (cuaderno + lapiceros + guia)' },
+            { id: 'prep3', text: 'Verificar senalizacion en su lugar (carteles puertas, flechas colores)' },
+            { id: 'prep4', text: 'Verificar cartel de horarios escalonados en cafeteria' },
+            { id: 'prep5', text: 'Confirmar con cafeteria que desayuno esta listo' },
+            { id: 'prep6', text: 'Armar mesa de registro en lobby — 3 filas por color' },
+            { id: 'prep7', text: 'Confirmar con seguridad UPC que tienen lista de DNIs' },
+            { id: 'prep8', text: 'Tener listo: lista maestra, gafetes, bolsas, mini-mapas' },
+        ],
+        tip: 'Banos edificio H no funcionan — usar los del edificio I (cafeteria pequena)'
+    },
+    {
+        id: 'registro',
+        time: '7:45',
+        timeEnd: '9:00',
+        emoji: '📋',
+        title: 'Llegada, registro y desayuno',
+        hour: 7.75,
+        tasks: [
+            { id: 'reg1', text: 'Monitorear llegada de buses en entrada UPC' },
+            { id: 'reg2', text: 'Reportar por WhatsApp cuando llega cada bus' },
+            { id: 'reg3', text: 'Registrar docentes — Fila AZUL (PIP ~50)' },
+            { id: 'reg4', text: 'Registrar docentes — Fila VERDE (Tutoria ~75)' },
+            { id: 'reg5', text: 'Registrar docentes — Fila ROJA (Matematica ~105)' },
+            { id: 'reg6', text: 'Entregar gafete de color + bolsa de bienvenida a cada docente' },
+            { id: 'reg7', text: 'Decirle su N° de aula y anotarlo en el gafete' },
+            { id: 'reg8', text: 'Darle mini-mapa del campus con ruta marcada' },
+            { id: 'reg9', text: 'Marcar asistencia en lista impresa' },
+            { id: 'reg10', text: 'Acompanar docentes al 2do piso (cafeteria) para desayuno' },
+            { id: 'reg11', text: 'Indicar como funciona el buffet de desayuno' },
+        ],
+        tip: 'Los buses pueden llegar en momentos distintos (7:45-8:30). La llegada escalonada es normal.'
+    },
+    {
+        id: 'traslado',
+        time: '8:45',
+        timeEnd: '9:00',
+        emoji: '🚶',
+        title: 'Traslado a aulas',
+        hour: 8.75,
+        tasks: [
+            { id: 'tras1', text: 'Anunciar: "Es hora de dirigirse a sus aulas"' },
+            { id: 'tras2', text: 'Posicionarse en: salida de cafeteria' },
+            { id: 'tras3', text: 'Posicionarse en: bifurcacion biblioteca / labs' },
+            { id: 'tras4', text: 'Posicionarse en: entrada biblioteca (PIP + Tutoria)' },
+            { id: 'tras5', text: 'Posicionarse en: entrada labs computo (Matematica)' },
+            { id: 'tras6', text: 'Orientar docentes por color de gafete hacia su aula' },
+            { id: 'tras7', text: 'Verificar que cada aula tiene cartel visible en la puerta' },
+        ],
+        tip: 'AZUL → Biblioteca 3er piso (PIP) · VERDE → Biblioteca 2do piso (Tutoria) · ROJO → Labs computo Edificio H (Mate)'
+    },
+    {
+        id: 'am',
+        time: '9:00',
+        timeEnd: '12:00',
+        emoji: '📚',
+        title: 'Monitoreo sesiones manana',
+        hour: 9,
+        tasks: [
+            { id: 'am1', text: 'Repartirse las 7 aulas para hacer rondas' },
+            { id: 'am2', text: 'Pasar por cada aula al menos 2 veces en la manana' },
+            { id: 'am3', text: 'Verificar: agua, proyector, internet funcionando' },
+            { id: 'am4', text: 'Resolver problemas tecnicos (contactar soporte UPC si necesario)' },
+            { id: 'am5', text: 'Reportar incidencias por WhatsApp del equipo' },
+        ],
+        tip: '7 aulas: Mac Lab Grande (PIP), Mac Lab 2 (Tut), Sala A, Sala B, Lab PC 1, 2, 3'
+    },
+    {
+        id: 'lunch',
+        time: '12:00',
+        timeEnd: '2:00',
+        emoji: '🍽️',
+        title: 'Almuerzo escalonado',
+        hour: 12,
+        info: '<span class="green-tag">●</span> <span class="blue-tag">●</span> PIP + Tutoria: <strong>12:00 - 1:00 PM</strong> (~125 pers.)<br><span class="red-tag">●</span> Matematica: <strong>1:00 - 2:00 PM</strong> (~105 pers.)',
+        tasks: [
+            { id: 'lun1', text: 'Recordar a facilitadores PIP/Tutoria: liberar grupos a las 12:00' },
+            { id: 'lun2', text: 'Monitorear flujo en cafeteria' },
+            { id: 'lun3', text: 'A la 1:00 PM — recordar a facilitadores Matematica liberar grupos' },
+            { id: 'lun4', text: 'Equipo almuerza por turnos (no todos al mismo tiempo)' },
+            { id: 'lun5', text: 'Verificar que aulas estan listas para retomar sesiones' },
+        ],
+    },
+    {
+        id: 'pm',
+        time: '2:00',
+        timeEnd: '3:00',
+        emoji: '📚',
+        title: 'Monitoreo sesiones tarde',
+        hour: 14,
+        tasks: [
+            { id: 'pm1', text: 'Recorrer aulas — misma ronda que en la manana' },
+            { id: 'pm2', text: 'Verificar que facilitadores retomaron a tiempo' },
+            { id: 'pm3', text: 'Resolver cualquier incidencia tecnica' },
+        ],
+    },
+    {
+        id: 'breaks',
+        time: '3:00',
+        timeEnd: '4:30',
+        emoji: '☕',
+        title: 'Breaks escalonados',
+        hour: 15,
+        info: '<span class="green-tag">●</span> <span class="blue-tag">●</span> PIP + Tutoria: <strong>3:00 - 3:30 PM</strong><br><span class="red-tag">●</span> Matematica: <strong>4:00 - 4:30 PM</strong>',
+        tasks: [
+            { id: 'brk1', text: 'Recordar a facilitadores PIP/Tutoria: break a las 3:00' },
+            { id: 'brk2', text: 'Monitorear cafeteria / zona lounge' },
+            { id: 'brk3', text: 'Verificar retorno a aulas de PIP/Tutoria a las 3:30' },
+            { id: 'brk4', text: 'Recordar a facilitadores Matematica: break a las 4:00' },
+            { id: 'brk5', text: 'Verificar retorno a aulas de Matematica a las 4:30' },
+        ],
+    },
+    {
+        id: 'final',
+        time: '4:30',
+        timeEnd: '5:30',
+        emoji: '📚',
+        title: 'Sesiones finales',
+        hour: 16.5,
+        tasks: [
+            { id: 'fin1', text: 'Monitoreo final de aulas' },
+            { id: 'fin2', text: 'Preparar logistica de cierre' },
+            { id: 'fin3', text: 'Verificar con cafeteria que todo esta en orden' },
+        ],
+    },
+    {
+        id: 'cierre',
+        time: '5:30',
+        timeEnd: '6:30',
+        emoji: '🚌',
+        title: 'Cierre y buses',
+        hour: 17.5,
+        tasks: [
+            { id: 'cie1', text: 'Facilitadores cierran sesiones a las 5:30 PM' },
+            { id: 'cie2', text: 'Orientar docentes hacia la salida / buses' },
+            { id: 'cie3', text: 'Coordinar salida de buses (~6:10 PM)' },
+            { id: 'cie4', text: 'Verificar que ningun docente quede rezagado en el campus' },
+            { id: 'cie5', text: 'Recoger materiales / cerrar aulas' },
+        ],
+        day2ExtraTasks: [
+            { id: 'cie6', text: '⭐ CLAUSURA en auditorio — palabras finales + foto grupal', day2: true },
+            { id: 'cie7', text: '⭐ Orientar docentes del auditorio a los buses', day2: true },
+            { id: 'cie8', text: '⭐ Recoger TODA la senalizacion del campus', day2: true },
+        ]
+    },
+];
+
+// ===== STATE =====
+let currentDay = 1;
+
+function getStorageKey() {
+    return `emc-checklist-day${currentDay}`;
+}
+
+function getCheckedTasks() {
+    try {
+        return JSON.parse(localStorage.getItem(getStorageKey()) || '{}');
+    } catch { return {}; }
+}
+
+function saveCheckedTasks(checked) {
+    localStorage.setItem(getStorageKey(), JSON.stringify(checked));
+}
+
+// ===== RENDER =====
+function render() {
+    const container = document.getElementById('blocksContainer');
+    const checked = getCheckedTasks();
+    const now = new Date();
+    const currentHour = now.getHours() + now.getMinutes() / 60;
+
+    let html = '';
+    let totalTasks = 0;
+    let totalDone = 0;
+
+    blocks.forEach((block, idx) => {
+        // Get tasks for this day
+        let allTasks = [...block.tasks];
+        if (currentDay === 2 && block.day2ExtraTasks) {
+            allTasks = [...allTasks, ...block.day2ExtraTasks];
+        }
+
+        const blockDone = allTasks.filter(t => checked[t.id]).length;
+        totalTasks += allTasks.length;
+        totalDone += blockDone;
+        const allBlockDone = blockDone === allTasks.length;
+
+        // Determine if current block
+        const nextBlock = blocks[idx + 1];
+        const isCurrent = currentHour >= block.hour && (!nextBlock || currentHour < nextBlock.hour);
+        const isPast = nextBlock && currentHour >= nextBlock.hour;
+
+        const classes = [
+            'time-block',
+            isCurrent ? 'current open' : '',
+            isPast && allBlockDone ? 'completed-block' : '',
+            isCurrent ? 'open' : ''
+        ].filter(Boolean).join(' ');
+
+        html += `<div class="${classes}" data-block="${block.id}">`;
+        html += `<div class="block-header" onclick="toggleBlock('${block.id}')">`;
+        html += `<div class="block-time">${block.time}</div>`;
+        html += `<div class="block-emoji">${block.emoji}</div>`;
+        html += `<div class="block-title">${block.title}</div>`;
+        html += `<div class="block-count ${allBlockDone ? 'all-done' : ''}">${blockDone}/${allTasks.length}</div>`;
+        html += `<div class="block-chevron">›</div>`;
+        html += `</div>`;
+
+        html += `<div class="block-body">`;
+
+        // Info callout
+        if (block.info) {
+            html += `<div class="info-callout">${block.info}</div>`;
+        }
+
+        // Tasks
+        allTasks.forEach(task => {
+            const isDone = checked[task.id];
+            const isDay2 = task.day2;
+            html += `<div class="task-item ${isDone ? 'done' : ''}">`;
+            html += `<div class="task-checkbox ${isDone ? 'checked' : ''}" onclick="toggleTask('${task.id}')"></div>`;
+            html += `<div class="task-text">${task.text}${isDay2 ? '<span class="day2-only">DIA 2</span>' : ''}</div>`;
+            html += `</div>`;
+        });
+
+        // Tip
+        if (block.tip) {
+            html += `<div class="tip">${block.tip}</div>`;
+        }
+
+        html += `</div></div>`;
+    });
+
+    container.innerHTML = html;
+
+    // Update progress
+    const pct = totalTasks > 0 ? Math.round((totalDone / totalTasks) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = pct + '%';
+
+    // Scroll to current block
+    const currentBlock = container.querySelector('.time-block.current');
+    if (currentBlock && !window._hasScrolled) {
+        setTimeout(() => {
+            currentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+        window._hasScrolled = true;
+    }
+}
+
+function toggleBlock(id) {
+    const el = document.querySelector(`[data-block="${id}"]`);
+    if (el) el.classList.toggle('open');
+}
+
+function toggleTask(taskId) {
+    const checked = getCheckedTasks();
+    checked[taskId] = !checked[taskId];
+    if (!checked[taskId]) delete checked[taskId];
+    saveCheckedTasks(checked);
+    render();
+}
+
+function switchDay(day) {
+    currentDay = day;
+    document.querySelectorAll('.day-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i + 1 === day);
+    });
+    window._hasScrolled = false;
+    render();
+}
+
+function resetDay() {
+    if (confirm('¿Reiniciar todas las tareas del dia ' + currentDay + '?')) {
+        localStorage.removeItem(getStorageKey());
+        render();
+    }
+}
+
+// ===== INIT =====
+render();
+
+// Auto-refresh every 5 min to update current block highlight
+setInterval(() => {
+    window._hasScrolled = true; // don't auto-scroll on refresh
+    render();
+}, 5 * 60 * 1000);
+</script>
+
+</body>
+</html>
