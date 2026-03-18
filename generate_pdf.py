@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Bienvenida Docentes PDF for Eligiendo Mi Camino."""
+"""Generate Bienvenida Docentes PDF for Eligiendo Mi Camino - Grupo II."""
 
 from fpdf import FPDF
 import os
@@ -192,39 +192,22 @@ def build_pdf():
     pdf.set_text_color(*DARK)
     pdf.ln(5)
 
-    # ---- DATES BLOCK - prominent on cover ----
+    # ---- SINGLE DATE BOX for Grupo II (orange) ----
     x = pdf.get_x()
     w_box = pdf.w - pdf.l_margin - pdf.r_margin
-    half = w_box / 2 - 2
-
-    # Grupo I box (orange)
     y_dates = pdf.get_y()
     pdf.set_fill_color(*ORANGE)
-    pdf.rect(x, y_dates, half, 24, style="F")
+    pdf.rect(x, y_dates, w_box, 24, style="F")
     pdf.set_xy(x + 3, y_dates + 2)
     pdf.set_font("Helvetica", "B", 10)
     pdf.set_text_color(*WHITE)
-    pdf.cell(half - 6, 6, "UGEL 01, 02, 03, 04", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 6, 6, "UGEL 05, 06, 07", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 3)
-    pdf.set_font("Helvetica", "B", 12)
-    pdf.cell(half - 6, 7, "Jueves 12 y Viernes 13", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "B", 13)
+    pdf.cell(w_box - 6, 8, "Viernes 20 y Sabado 21 de marzo 2026", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 3)
     pdf.set_font("Helvetica", "", 8)
-    pdf.cell(half - 6, 5, "de marzo 2026", align="C", new_x="LMARGIN", new_y="NEXT")
-
-    # Grupo II box (gray)
-    x2 = x + half + 4
-    pdf.set_fill_color(160, 160, 160)
-    pdf.rect(x2, y_dates, half, 24, style="F")
-    pdf.set_xy(x2 + 3, y_dates + 2)
-    pdf.set_font("Helvetica", "B", 10)
-    pdf.cell(half - 6, 6, "UGEL 05, 06, 07", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_x(x2 + 3)
-    pdf.set_font("Helvetica", "B", 12)
-    pdf.cell(half - 6, 7, "Fechas por confirmar", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_x(x2 + 3)
-    pdf.set_font("Helvetica", "", 8)
-    pdf.cell(half - 6, 5, "proximamente", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 6, 5, "Grupo II - Capacitacion presencial en UPC Campus Villa", align="C", new_x="LMARGIN", new_y="NEXT")
 
     pdf.set_text_color(*DARK)
     pdf.set_y(y_dates + 28)
@@ -272,40 +255,30 @@ def build_pdf():
     )
     pdf.ln(3)
 
-    # UGEL data - using a card-style layout instead of a cramped table
+    # UGEL data - only Grupo II (UGEL 05, 06, 07)
     ugels = [
-        ("UGEL 01", "Grupo I", "Jueves 12 y Viernes 13 de marzo",
-         "Sede UGEL 01 - San Juan de Miraflores", "Los s/n, Los Angeles, San Juan de Miraflores"),
-        ("UGEL 02", "Grupo I", "Jueves 12 y Viernes 13 de marzo",
-         "Sede UGEL 02 - Rimac", "Jr. Alfonso Bernal Montoya Mz B1, San Martin de Porres"),
-        ("UGEL 03", "Grupo I", "Jueves 12 y Viernes 13 de marzo",
-         "Sede UGEL 03 - Brena", "Av. Iquitos 918, La Victoria"),
-        ("UGEL 04", "Grupo I", "Jueves 12 y Viernes 13 de marzo",
-         "Sede UGEL 04 - Comas", "Av. Carabayllo 561, Comas"),
-        ("UGEL 05", "Grupo II", "Fechas por confirmar",
+        ("UGEL 05", "Grupo II", "Viernes 20 y Sabado 21 de marzo",
          "Sede UGEL 05 - San Juan de Lurigancho", "Av. Peru s/n Urb, San Juan de Lurigancho"),
-        ("UGEL 06", "Grupo II", "Fechas por confirmar",
+        ("UGEL 06", "Grupo II", "Viernes 20 y Sabado 21 de marzo",
          "Sede UGEL 06 - Ate", "Av. La Molina 905, La Molina"),
-        ("UGEL 07", "Grupo II", "Fechas por confirmar",
+        ("UGEL 07", "Grupo II", "Viernes 20 y Sabado 21 de marzo",
          "Sede UGEL 07 - San Borja", "Ca. Jose Alvarez Calderon 492, San Borja"),
     ]
 
     for i, (ugel, grupo, fechas, bus, addr) in enumerate(ugels):
         if pdf.get_y() > 245:
             pdf.add_page()
-        is_g1 = grupo == "Grupo I"
-        # UGEL name bar
-        color = ORANGE if is_g1 else (160, 160, 160)
-        pdf.set_fill_color(*color)
+        # UGEL name bar - all confirmed in ORANGE
+        pdf.set_fill_color(*ORANGE)
         pdf.set_text_color(*WHITE)
         pdf.set_font("Helvetica", "B", 10)
         pdf.cell(35, 7, ugel, fill=True, new_x="END")
-        pdf.set_fill_color(*(LIGHT_BG if is_g1 else (240, 240, 240)))
+        pdf.set_fill_color(*LIGHT_BG)
         pdf.set_text_color(*DARK)
         pdf.set_font("Helvetica", "B", 9)
         pdf.cell(25, 7, "  " + grupo, fill=True, new_x="END")
         pdf.set_font("Helvetica", "", 9)
-        pdf.cell(0, 7, "  " + fechas, fill=True, new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, "  " + fechas + "  - Confirmado", fill=True, new_x="LMARGIN", new_y="NEXT")
         # Bus + address
         pdf.set_font("Helvetica", "", 8)
         pdf.set_text_color(80, 80, 80)
@@ -315,35 +288,66 @@ def build_pdf():
 
     pdf.ln(3)
     pdf.colored_box(
-        "IMPORTANTE: El bus sale puntual a las 7:00 AM desde la sede de tu UGEL. "
+        "IMPORTANTE: El bus sale puntual desde la sede de tu UGEL. "
         "El viaje dura entre 45 y 90 minutos dependiendo de tu ubicacion. "
-        "Ten tu DNI listo para ingresar al campus."
+        "Ten tu DNI listo para ingresar.\n\n"
+        "HORA DE SALIDA DEL BUS:\n"
+        "  - Viernes 12pm\n"
+        "  - Sabado 8am"
+    )
+
+    pdf.ln(2)
+
+    # Box for UGEL 1-4 catch-up
+    pdf.colored_box(
+        "No pudiste asistir los dias 12 y 13? Si eres de UGEL 1, 2, 3 o 4, aun puedes "
+        "sumarte los dias 20 y 21. Puedes llegar directo a la UPC o unirte al transporte "
+        "desde los puntos de encuentro de UGEL 5, 6 o 7.",
+        bg=(255, 243, 224), border_color=DEEP_ORANGE
+    )
+
+    pdf.ln(2)
+
+    # Box for multiple roles
+    pdf.colored_box(
+        "Tienes mas de un rol? Si participas como docente de Matematicas, tutor/a y/o "
+        "coordinador/a PIP-AIP, recuerda que debes asistir a la capacitacion correspondiente "
+        "a cada perfil.",
+        bg=(232, 245, 233), border_color=GREEN
     )
 
     # ===== PAGE 3: YOUR DAY STEP BY STEP =====
     pdf.add_page()
     pdf.section_title("Tu Dia en la UPC - Paso a Paso")
 
-    steps = [
-        ("7:00 AM", "Salida del bus desde tu UGEL",
-         "El bus sale puntual a las 7:00 AM desde la sede de tu UGEL."),
-        ("~8:00 AM", "Llegada a UPC Campus Villa",
-         "Al llegar, el personal de seguridad verificara tu DNI. Ten tu documento listo."),
-        ("8:00 AM", "Registro y bienvenida",
-         "En la mesa de registro recibiras tu gafete de color, un mini mapa del campus y tu bolsa de bienvenida."),
-        ("8:00 - 8:45", "Desayuno",
-         "Sube a la cafeteria del 2do piso para el desayuno de bienvenida. Servicio tipo buffet."),
-        ("8:45 AM", "Traslado a tu aula",
-         "Sigue la senalizacion de tu color desde la cafeteria hasta tu aula."),
-        ("9:00 AM", "Inicio de la capacitacion",
-         "En tu puesto encontraras la guia impresa de tu curso. Las sesiones comienzan a las 9:00 AM."),
-        ("Almuerzo", "Almuerzo escalonado",
-         "PIP/Tutoria: 12:00-1:00 PM  |  Matematica: 1:00-2:00 PM. Cafeteria 2do piso."),
-        ("Dia 2 - 5:30", "Clausura",
-         "Palabras finales y foto grupal en el auditorio. Bus de regreso a tu UGEL (~6:10 PM)."),
+    # ---------- VIERNES 20 (Dia 1) ----------
+    pdf.set_fill_color(*DEEP_ORANGE)
+    pdf.set_text_color(*WHITE)
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(0, 9, "VIERNES 20 (Dia 1)", fill=True, align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
+    pdf.ln(3)
+
+    steps_viernes = [
+        ("12:00 PM", "Salida del bus desde tu UGEL",
+         "El bus sale puntual a las 12:00 PM desde la sede de tu UGEL."),
+        ("~1:30 PM", "Llegada a UPC Campus Villa",
+         "Al llegar, seguridad verificara tu DNI. Ten tu documento listo."),
+        ("1:30 PM", "Registro y bienvenida",
+         "En la mesa de registro recibiras tu gafete de color, mini mapa del campus y tu bolsa de bienvenida."),
+        ("1:30 - 2:00", "Traslado a tu aula",
+         "Sigue la senalizacion de tu color desde el registro hasta tu aula."),
+        ("2:00 - 4:00", "Sesion de capacitacion",
+         "En tu puesto encontraras la guia impresa de tu curso."),
+        ("4:00 - 4:15", "Break con refrigerio",
+         "Refrigerio en la cafeteria del 2do piso."),
+        ("4:15 - 6:00", "Continuacion de sesion",
+         "Continuacion de la capacitacion hasta las 6:00 PM."),
+        ("6:00 PM", "Bus de regreso",
+         "El bus te lleva de regreso a la sede de tu UGEL."),
     ]
 
-    for idx, (time, title, desc) in enumerate(steps):
+    for idx, (time, title, desc) in enumerate(steps_viernes):
         if pdf.get_y() > 255:
             pdf.add_page()
         pdf.set_fill_color(*ORANGE)
@@ -362,7 +366,60 @@ def build_pdf():
         pdf.set_text_color(80, 80, 80)
         pdf.multi_cell(0, 4.5, desc, new_x="LMARGIN", new_y="NEXT")
         pdf.set_text_color(*DARK)
-        pdf.ln(3)
+        pdf.ln(2)
+
+    pdf.ln(3)
+
+    # ---------- SABADO 21 (Dia 2) ----------
+    if pdf.get_y() > 200:
+        pdf.add_page()
+
+    pdf.set_fill_color(*DEEP_ORANGE)
+    pdf.set_text_color(*WHITE)
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(0, 9, "SABADO 21 (Dia 2)", fill=True, align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
+    pdf.ln(3)
+
+    steps_sabado = [
+        ("8:00 AM", "Salida del bus desde tu UGEL",
+         "El bus te recoge a las 8:00 AM desde la sede de tu UGEL."),
+        ("~9:30 AM", "Llegada y desayuno",
+         "Al llegar, desayuno de bienvenida en la cafeteria del 2do piso."),
+        ("10:00 AM", "Inicio de la capacitacion",
+         "Las sesiones del dia 2 comienzan a las 10:00 AM."),
+        ("12:30 - 1:30", "Almuerzo",
+         "Almuerzo en la cafeteria del 2do piso."),
+        ("1:30 - 3:30", "Sesion de la tarde",
+         "Continuacion de la capacitacion."),
+        ("3:30 - 3:45", "Break",
+         "Receso breve."),
+        ("3:45 - 4:40", "Sesion final",
+         "Ultima sesion del dia. Asegurate de tener tus compromisos firmados."),
+        ("4:40 PM", "Clausura en auditorio",
+         "Palabras finales en el auditorio. Los compromisos deben estar firmados. Bus de regreso a tu UGEL despues de la clausura."),
+    ]
+
+    for idx, (time, title, desc) in enumerate(steps_sabado):
+        if pdf.get_y() > 255:
+            pdf.add_page()
+        pdf.set_fill_color(*ORANGE)
+        pdf.set_text_color(*WHITE)
+        pdf.set_font("Helvetica", "B", 10)
+        x0 = pdf.get_x()
+        pdf.cell(8, 6, str(idx + 1), fill=True, align="C", new_x="END")
+        pdf.set_text_color(*DEEP_ORANGE)
+        pdf.set_font("Helvetica", "B", 9)
+        pdf.cell(30, 6, "  " + time, new_x="END")
+        pdf.set_text_color(*DARK)
+        pdf.set_font("Helvetica", "B", 10)
+        pdf.cell(0, 6, title, new_x="LMARGIN", new_y="NEXT")
+        pdf.set_x(x0 + 8)
+        pdf.set_font("Helvetica", "", 9)
+        pdf.set_text_color(80, 80, 80)
+        pdf.multi_cell(0, 4.5, desc, new_x="LMARGIN", new_y="NEXT")
+        pdf.set_text_color(*DARK)
+        pdf.ln(2)
 
     # Photos right after steps - check space
     pdf.ln(2)
@@ -428,8 +485,9 @@ def build_pdf():
 
     # Math key times + materials
     pdf.section_title("Horarios Clave")
-    pdf.bullet("-", "Almuerzo: 1:00 - 2:00 PM (cafeteria 2do piso)")
-    pdf.bullet("-", "Receso: 4:00 - 4:30 PM")
+    pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
+    pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
+    pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
     pdf.bullet("-", "Senalizacion: sigue las flechas ROJAS")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
@@ -468,8 +526,9 @@ def build_pdf():
 
     # Tutoria key times + materials
     pdf.section_title("Horarios Clave")
-    pdf.bullet("-", "Almuerzo: 12:00 - 1:00 PM (cafeteria 2do piso)")
-    pdf.bullet("-", "Receso: 3:00 - 3:30 PM")
+    pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
+    pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
+    pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
     pdf.bullet("-", "Senalizacion: sigue las flechas VERDES")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
@@ -494,8 +553,9 @@ def build_pdf():
 
     # PIP key times + materials
     pdf.section_title("Horarios Clave")
-    pdf.bullet("-", "Almuerzo: 12:00 - 1:00 PM (cafeteria 2do piso)")
-    pdf.bullet("-", "Receso: 3:00 - 3:30 PM")
+    pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
+    pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
+    pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
     pdf.bullet("-", "Senalizacion: sigue las flechas AZULES")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
@@ -550,8 +610,9 @@ def build_pdf():
 
     pdf.colored_box(
         "TODO LO DEMAS LO PROPORCIONAMOS NOSOTROS\n"
-        "Desayuno, almuerzo, receso, materiales de trabajo, cuaderno, "
-        "lapiceros y el transporte de ida y vuelta estan incluidos."
+        "Almuerzo (sabado), refrigerios, desayuno (sabado), materiales de trabajo, "
+        "cuaderno, lapiceros y el transporte de ida y vuelta estan incluidos. "
+        "El viernes llegaras ya almorzado/a."
     )
 
     # ===== CERTIFICATION =====
