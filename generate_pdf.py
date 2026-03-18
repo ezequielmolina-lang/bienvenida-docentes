@@ -641,32 +641,56 @@ def build_pdf():
     pdf.ln(5)
     pdf.section_title("Certificacion")
 
-    # Cert box - green themed
+    # Cert box 1 - capacitacion (16 hours)
     pdf.set_fill_color(232, 245, 233)
     pdf.set_draw_color(*GREEN)
     pdf.set_line_width(0.8)
     x, y = pdf.get_x(), pdf.get_y()
     w_box = pdf.w - pdf.l_margin - pdf.r_margin
-    pdf.rect(x, y, w_box, 30, style="DF")
+    pdf.rect(x, y, w_box, 35, style="DF")
     pdf.set_xy(x + 4, y + 3)
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(*GREEN)
-    pdf.cell(w_box - 8, 6, "Certificado oficial de la DRELM y la UPC", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 8, 6, "1. Certificado por la capacitacion (16 horas)", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 4)
     pdf.set_font("Helvetica", "", 9)
     pdf.set_text_color(*DARK)
     pdf.multi_cell(w_box - 8, 5,
-        "Al completar los dos dias de capacitacion recibiras un certificado "
+        "Al completar los dos dias de capacitacion recibiras un certificado de 16 horas "
         "emitido por la DRELM y la UPC, valido para tu escalafon docente.",
         align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_y(y + 34)
+    pdf.set_y(y + 39)
+    pdf.set_draw_color(0, 0, 0)
+    pdf.set_line_width(0.2)
+
+    pdf.ln(3)
+
+    # Cert box 2 - implementacion (120 hours)
+    pdf.set_fill_color(227, 242, 253)
+    pdf.set_draw_color(*BLUE)
+    pdf.set_line_width(0.8)
+    x, y = pdf.get_x(), pdf.get_y()
+    pdf.rect(x, y, w_box, 40, style="DF")
+    pdf.set_xy(x + 4, y + 3)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_text_color(*BLUE)
+    pdf.cell(w_box - 8, 6, "2. Certificado por la implementacion del programa (120 horas)", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(x + 4)
+    pdf.set_font("Helvetica", "", 9)
+    pdf.set_text_color(*DARK)
+    pdf.multi_cell(w_box - 8, 5,
+        "Ademas de la capacitacion, recibiras una certificacion adicional de 120 horas "
+        "por la implementacion del programa Eligiendo Mi Camino en tu escuela. "
+        "Esta certificacion esta siendo coordinada con la DRELM.",
+        align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_y(y + 44)
     pdf.set_draw_color(0, 0, 0)
     pdf.set_line_width(0.2)
 
     pdf.ln(2)
     pdf.set_font("Helvetica", "B", 8)
     pdf.set_text_color(80, 80, 80)
-    pdf.cell(0, 5, "* La asistencia a AMBOS dias es obligatoria para recibir el certificado.",
+    pdf.cell(0, 5, "* La asistencia a AMBOS dias es obligatoria para recibir el certificado de capacitacion.",
              new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
 
