@@ -419,6 +419,11 @@ def build_pdf():
         pdf.set_text_color(80, 80, 80)
         pdf.multi_cell(0, 4.5, desc, new_x="LMARGIN", new_y="NEXT")
         pdf.set_text_color(*DARK)
+        # Add auditorio photo after clausura step (step 8)
+        if idx == 7:
+            pdf.ln(2)
+            pdf.add_photo(os.path.join(FOTOS, "auditorio.jpeg"),
+                          "Auditorio - palabras finales y clausura", max_w=100)
         pdf.ln(2)
 
     # Photos right after steps - check space
@@ -469,7 +474,7 @@ def build_pdf():
     # Two photos side by side (both landscape)
     y_p = pdf.get_y()
     tunel = os.path.join(FOTOS, "pabellon_a_lab.png")
-    labs = os.path.join(FOTOS, "pabellon_a_lab2.png")
+    labs = os.path.join(FOTOS, "pabellon_a_camino.png")
     if os.path.exists(tunel):
         pdf.image(tunel, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(labs):
@@ -479,7 +484,7 @@ def build_pdf():
     pdf.set_text_color(120, 120, 120)
     pdf.cell(photo_w, 4, "Laboratorio de Computo VA107 - Pabellon A", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Laboratorio de Computo - tu aula de matematica", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(photo_w, 4, "Camino al Pabellon A (junto a Starbucks)", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
@@ -509,8 +514,8 @@ def build_pdf():
 
     # Two photos side by side
     y_p = pdf.get_y()
-    ruta = os.path.join(FOTOS, "sala_computadoras_2_piso2.png")
-    mac = os.path.join(FOTOS, "sala_computadoras_interior.png")
+    ruta = os.path.join(FOTOS, "entrada_pabellon_i.png")
+    mac = os.path.join(FOTOS, "sala_imac_interior.jpeg")
     if os.path.exists(ruta):
         pdf.image(ruta, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(mac):
@@ -518,9 +523,9 @@ def build_pdf():
     pdf.set_y(y_p + 55)
     pdf.set_font("Helvetica", "I", 7)
     pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Sala de Computadoras 2 - Pabellon I, 2do piso", align="C", new_x="END")
+    pdf.cell(photo_w, 4, "Entrada Pabellon I (Biblioteca)", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Sala de Computadoras - tu aula de tutoria", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(photo_w, 4, "Sala de Computadoras iMac - tu aula", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
