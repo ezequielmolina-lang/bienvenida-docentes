@@ -330,11 +330,11 @@ def build_pdf():
 
     steps_viernes = [
         ("12:00 PM", "Salida del bus desde tu UGEL",
-         "El bus sale puntual a las 12:00 PM desde la sede de tu UGEL."),
+         "El bus sale puntual a las 12:00 PM desde la sede de tu UGEL. Recibiras almuerzo para llevar en el bus."),
         ("~1:30 PM", "Llegada a UPC Campus Villa",
          "Al llegar, seguridad verificara tu DNI. Ten tu documento listo."),
         ("1:30 PM", "Registro y bienvenida",
-         "En la mesa de registro recibiras tu gafete de color, mini mapa del campus y tu bolsa de bienvenida."),
+         "En la mesa de registro recibiras tu gafete de color y tu bolsa de bienvenida."),
         ("1:30 - 2:00", "Traslado a tu aula",
          "Sigue la senalizacion de tu color desde el registro hasta tu aula."),
         ("2:00 - 4:00", "Sesion de capacitacion",
@@ -344,7 +344,7 @@ def build_pdf():
         ("4:15 - 6:00", "Continuacion de sesion",
          "Continuacion de la capacitacion hasta las 6:00 PM."),
         ("6:00 PM", "Bus de regreso",
-         "El bus te lleva de regreso a la sede de tu UGEL."),
+         "Recibiras cena para llevar. El bus te lleva de regreso a la sede de tu UGEL."),
     ]
 
     for idx, (time, title, desc) in enumerate(steps_viernes):
@@ -458,18 +458,18 @@ def build_pdf():
     pdf.header_bar("DOCENTES DE MATEMATICA", "Gafete ROJO", color=RED)
 
     pdf.section_title("Tu Aula")
-    pdf.body_text("Laboratorios de PC (Lab PC 1, Lab PC 2 o Lab PC 3)", bold=True)
-    pdf.body_text("Area de laboratorios de computo", size=9)
+    pdf.body_text("VA107 y VA108 - Laboratorios de Computo", bold=True)
+    pdf.body_text("Pabellon A", size=9)
     pdf.ln(2)
-    pdf.bullet("-", "Ubicacion: Area de laboratorios de computo")
-    pdf.bullet("-", "Capacidad: ~35 personas por laboratorio (3 labs en total)")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas ROJAS hacia los labs")
+    pdf.bullet("-", "Ubicacion: Pabellon A, planta baja")
+    pdf.bullet("-", "Capacidad: ~35 personas por laboratorio (2 labs)")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas ROJAS hacia el Pabellon A")
     pdf.ln(3)
 
     # Two photos side by side (both landscape)
     y_p = pdf.get_y()
-    tunel = os.path.join(FOTOS, "tunel_edificio_h.png")
-    labs = os.path.join(FOTOS, "aulas_h315_h316.png")
+    tunel = os.path.join(FOTOS, "pabellon_a_lab.png")
+    labs = os.path.join(FOTOS, "pabellon_a_lab2.png")
     if os.path.exists(tunel):
         pdf.image(tunel, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(labs):
@@ -477,9 +477,9 @@ def build_pdf():
     pdf.set_y(y_p + 50)
     pdf.set_font("Helvetica", "I", 7)
     pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Tunel hacia los laboratorios", align="C", new_x="END")
+    pdf.cell(photo_w, 4, "Laboratorio de Computo VA107 - Pabellon A", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Labs de PC - tu aula", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(photo_w, 4, "Laboratorio de Computo - tu aula de matematica", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
@@ -499,18 +499,18 @@ def build_pdf():
     pdf.header_bar("DOCENTES DE TUTORIA / OV", "Gafete VERDE", color=GREEN)
 
     pdf.section_title("Tu Aula")
-    pdf.body_text("Mac Lab 2 + Salas A y B", bold=True)
-    pdf.body_text("Biblioteca, 2do piso", size=9)
+    pdf.body_text("Sala de Computadoras 2 (iMac)", bold=True)
+    pdf.body_text("Pabellon I, 2do piso", size=9)
     pdf.ln(2)
-    pdf.bullet("-", "Ubicacion: Biblioteca, 2do piso (cerca de la cafeteria)")
-    pdf.bullet("-", "Capacidad: Mac Lab 2 (~35) + Sala A (~20) + Sala B (~20)")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas VERDES hacia la biblioteca")
+    pdf.bullet("-", "Ubicacion: Pabellon I, 2do piso")
+    pdf.bullet("-", "Capacidad: ~93 personas")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas VERDES hacia el Pabellon I")
     pdf.ln(3)
 
     # Two photos side by side
     y_p = pdf.get_y()
-    ruta = os.path.join(FOTOS, "ruta_salas_tutoria.png")
-    mac = os.path.join(FOTOS, "mac_labs.png")
+    ruta = os.path.join(FOTOS, "sala_computadoras_2_piso2.png")
+    mac = os.path.join(FOTOS, "sala_computadoras_interior.png")
     if os.path.exists(ruta):
         pdf.image(ruta, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(mac):
@@ -518,9 +518,9 @@ def build_pdf():
     pdf.set_y(y_p + 55)
     pdf.set_font("Helvetica", "I", 7)
     pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Ruta a salas de tutoria", align="C", new_x="END")
+    pdf.cell(photo_w, 4, "Sala de Computadoras 2 - Pabellon I, 2do piso", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Mac Lab", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(photo_w, 4, "Sala de Computadoras - tu aula de tutoria", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
@@ -540,16 +540,16 @@ def build_pdf():
     pdf.header_bar("DOCENTES DE INNOVACION (PIP)", "Gafete AZUL", color=BLUE)
 
     pdf.section_title("Tu Aula")
-    pdf.body_text("Sala de Computadoras - Biblioteca", bold=True)
-    pdf.body_text("Biblioteca, 3er piso", size=9)
+    pdf.body_text("Sala de Computadoras 3 (iMac)", bold=True)
+    pdf.body_text("Pabellon I, 3er piso", size=9)
     pdf.ln(2)
-    pdf.bullet("-", "Ubicacion: Biblioteca, 3er piso")
+    pdf.bullet("-", "Ubicacion: Pabellon I, 3er piso")
     pdf.bullet("-", "Capacidad: ~50 personas")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas AZULES hacia la biblioteca, sube al 3er piso")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas AZULES hacia el Pabellon I, sube al 3er piso")
     pdf.ln(3)
 
     pdf.add_photo(os.path.join(FOTOS, "biblioteca_3er_piso.png"),
-                  "3er piso - Sala de Computadoras (tu aula de innovacion)", max_w=100)
+                  "Sala de Computadoras 3 - Pabellon I, 3er piso (tu aula de innovacion)", max_w=100)
 
     # PIP key times + materials
     pdf.section_title("Horarios Clave")
@@ -610,9 +610,9 @@ def build_pdf():
 
     pdf.colored_box(
         "TODO LO DEMAS LO PROPORCIONAMOS NOSOTROS\n"
-        "Almuerzo (sabado), refrigerios, desayuno (sabado), materiales de trabajo, "
-        "cuaderno, lapiceros y el transporte de ida y vuelta estan incluidos. "
-        "El viernes llegaras ya almorzado/a."
+        "Almuerzo para llevar en el bus (viernes), cena para llevar (viernes), "
+        "desayuno (sabado), almuerzo (sabado), refrigerios, materiales de trabajo, "
+        "cuaderno, lapiceros y el transporte de ida y vuelta estan incluidos."
     )
 
     # ===== CERTIFICATION =====
