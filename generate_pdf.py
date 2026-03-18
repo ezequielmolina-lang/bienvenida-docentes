@@ -330,11 +330,11 @@ def build_pdf():
 
     steps_viernes = [
         ("12:00 PM", "Salida del bus desde tu UGEL",
-         "El bus sale puntual a las 12:00 PM desde la sede de tu UGEL. Recibiras almuerzo para llevar en el bus."),
+         "El bus sale puntual a las 12:00 PM desde la sede de tu UGEL. Recibiras almuerzo para comer en el bus."),
         ("~1:30 PM", "Llegada a UPC Campus Villa",
          "Al llegar, seguridad verificara tu DNI. Ten tu documento listo."),
         ("1:30 PM", "Registro y bienvenida",
-         "En la mesa de registro recibiras tu gafete de color y tu bolsa de bienvenida."),
+         "Recibiras tu bolsa de bienvenida."),
         ("1:30 - 2:00", "Traslado a tu aula",
          "Sigue la senalizacion de tu color desde el registro hasta tu aula."),
         ("2:00 - 4:00", "Sesion de capacitacion",
@@ -468,7 +468,7 @@ def build_pdf():
     pdf.ln(2)
     pdf.bullet("-", "Ubicacion: Pabellon A, planta baja")
     pdf.bullet("-", "Capacidad: ~35 personas por laboratorio (2 labs)")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas ROJAS hacia el Pabellon A")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, camina hacia Starbucks. El Pabellon A esta justo al lado.")
     pdf.ln(3)
 
     # Two photos side by side (both landscape)
@@ -493,11 +493,15 @@ def build_pdf():
     pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
     pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
     pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
-    pdf.bullet("-", "Senalizacion: sigue las flechas ROJAS")
+    pdf.bullet("-", "Senalizacion: camina hacia Starbucks, Pabellon A esta al lado")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Guia docente de matematica (material impreso)")
     pdf.bullet("-", "Computadora con materiales digitales")
+    pdf.ln(4)
+    pdf.body_text("Tus capacitadoras:", bold=True, size=9)
+    pdf.bullet("-", "VA107: Maria Elena")
+    pdf.bullet("-", "VA108: Norma")
 
     # ---------- TUTORIA ----------
     pdf.add_page()
@@ -509,13 +513,13 @@ def build_pdf():
     pdf.ln(2)
     pdf.bullet("-", "Ubicacion: Pabellon I, 2do piso")
     pdf.bullet("-", "Capacidad: ~93 personas")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas VERDES hacia el Pabellon I")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, camina hacia las escaleras rojas, sube al 2do piso. Ahi encontraras la Sala de Computadoras 2.")
     pdf.ln(3)
 
     # Two photos side by side
     y_p = pdf.get_y()
     ruta = os.path.join(FOTOS, "entrada_pabellon_i.png")
-    mac = os.path.join(FOTOS, "sala_imac_interior.jpeg")
+    mac = os.path.join(FOTOS, "escaleras_rojas_biblioteca.png")
     if os.path.exists(ruta):
         pdf.image(ruta, x=x_left, y=y_p, w=photo_w)
     if os.path.exists(mac):
@@ -525,7 +529,7 @@ def build_pdf():
     pdf.set_text_color(120, 120, 120)
     pdf.cell(photo_w, 4, "Entrada Pabellon I (Biblioteca)", align="C", new_x="END")
     pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Sala de Computadoras iMac - tu aula", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(photo_w, 4, "Escaleras rojas hacia la Biblioteca - sube al 2do piso", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
     pdf.ln(4)
 
@@ -534,11 +538,14 @@ def build_pdf():
     pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
     pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
     pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
-    pdf.bullet("-", "Senalizacion: sigue las flechas VERDES")
+    pdf.bullet("-", "Senalizacion: camina hacia las escaleras rojas, sube al 2do piso")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Guia de tutoria (material impreso)")
     pdf.bullet("-", "Computadora con materiales digitales")
+    pdf.ln(4)
+    pdf.body_text("Tus capacitadoras:", bold=True, size=9)
+    pdf.bullet("-", "Judith e Isa")
 
     # ---------- PIP ----------
     pdf.add_page()
@@ -550,7 +557,7 @@ def build_pdf():
     pdf.ln(2)
     pdf.bullet("-", "Ubicacion: Pabellon I, 3er piso")
     pdf.bullet("-", "Capacidad: ~50 personas")
-    pdf.bullet("-", "Como llegar: Desde la cafeteria, sigue las flechas AZULES hacia el Pabellon I, sube al 3er piso")
+    pdf.bullet("-", "Como llegar: Desde la cafeteria, camina hacia las escaleras rojas, sube al 3er piso de la Biblioteca.")
     pdf.ln(3)
 
     pdf.add_photo(os.path.join(FOTOS, "biblioteca_3er_piso.png"),
@@ -561,11 +568,14 @@ def build_pdf():
     pdf.bullet("-", "Viernes: Break con refrigerio 4:00 - 4:15 PM")
     pdf.bullet("-", "Sabado: Almuerzo 12:30 - 1:30 PM")
     pdf.bullet("-", "Sabado: Break 3:30 - 3:45 PM")
-    pdf.bullet("-", "Senalizacion: sigue las flechas AZULES")
+    pdf.bullet("-", "Senalizacion: camina hacia las escaleras rojas, sube al 3er piso")
     pdf.ln(4)
     pdf.body_text("Material en tu puesto:", bold=True, size=9)
     pdf.bullet("-", "Los 5 Compromisos + Afiches (material impreso)")
     pdf.bullet("-", "Computadora con materiales digitales")
+    pdf.ln(4)
+    pdf.body_text("Tu capacitadora:", bold=True, size=9)
+    pdf.bullet("-", "Carolina")
 
     # ===== WHAT YOU RECEIVE & BRING =====
     pdf.add_page()
@@ -615,7 +625,7 @@ def build_pdf():
 
     pdf.colored_box(
         "TODO LO DEMAS LO PROPORCIONAMOS NOSOTROS\n"
-        "Almuerzo para llevar en el bus (viernes), cena para llevar (viernes), "
+        "Almuerzo para comer en el bus (viernes), cena para llevar (viernes), "
         "desayuno (sabado), almuerzo (sabado), refrigerios, materiales de trabajo, "
         "cuaderno, lapiceros y el transporte de ida y vuelta estan incluidos."
     )
