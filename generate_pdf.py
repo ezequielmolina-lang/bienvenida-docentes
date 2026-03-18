@@ -190,60 +190,89 @@ def build_pdf():
     vid_link = "https://drive.google.com/file/d/1epEU4vQEa4nxbwcHkuKG1mz8KBtSpIfe/view"
     pdf.cell(0, 5, "Ver video de bienvenida", align="C", link=vid_link, new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*DARK)
-    pdf.ln(5)
+    pdf.ln(3)
 
-    # ---- SINGLE DATE BOX for Grupo II (orange) ----
+    # ---- BIG DATE BOX ----
     x = pdf.get_x()
     w_box = pdf.w - pdf.l_margin - pdf.r_margin
     y_dates = pdf.get_y()
     pdf.set_fill_color(*ORANGE)
-    pdf.rect(x, y_dates, w_box, 24, style="F")
+    pdf.rect(x, y_dates, w_box, 18, style="F")
     pdf.set_xy(x + 3, y_dates + 2)
-    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_font("Helvetica", "B", 14)
     pdf.set_text_color(*WHITE)
-    pdf.cell(w_box - 6, 6, "UGEL 05, 06, 07", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 6, 7, "Viernes 20 y Sabado 21 de marzo 2026", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 3)
-    pdf.set_font("Helvetica", "B", 13)
-    pdf.cell(w_box - 6, 8, "Viernes 20 y Sabado 21 de marzo 2026", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_x(x + 3)
-    pdf.set_font("Helvetica", "", 8)
-    pdf.cell(w_box - 6, 5, "Grupo II - Capacitacion presencial en UPC Campus Villa", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 9)
+    pdf.cell(w_box - 6, 5, "UGEL 05, 06, 07  |  Grupo II  |  UPC Campus Villa, Chorrillos", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
+    pdf.set_y(y_dates + 21)
+
+    # ---- BUS DEPARTURE TABLE - BIG AND CLEAR ----
+    pdf.set_fill_color(*DEEP_ORANGE)
+    pdf.set_text_color(*WHITE)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.cell(0, 8, "HORA Y PUNTO DE SALIDA DEL BUS", fill=True, align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
+    pdf.ln(2)
+
+    # Bus schedule - Viernes
+    pdf.set_fill_color(255, 243, 224)
+    pdf.set_font("Helvetica", "B", 10)
+    pdf.cell(0, 7, "VIERNES 20 - Bus sale a las 12:00 PM", fill=True, new_x="LMARGIN", new_y="NEXT")
+    pdf.set_fill_color(255, 243, 224)
+    pdf.set_font("Helvetica", "B", 10)
+    pdf.cell(0, 7, "SABADO 21 - Bus sale a las 8:00 AM", fill=True, new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(2)
+
+    # UGEL bus points - compact table
+    bus_points = [
+        ("UGEL 05", "Sede UGEL 05 - San Juan de Lurigancho", "Av. Peru s/n Urb, San Juan de Lurigancho"),
+        ("UGEL 06", "Sede UGEL 06 - Ate", "Av. La Molina 905, La Molina"),
+        ("UGEL 07", "Sede UGEL 07 - San Borja", "Ca. Jose Alvarez Calderon 492, San Borja"),
+    ]
+
+    for ugel, bus, addr in bus_points:
+        pdf.set_fill_color(*ORANGE)
+        pdf.set_text_color(*WHITE)
+        pdf.set_font("Helvetica", "B", 9)
+        pdf.cell(25, 6, ugel, fill=True, new_x="END")
+        pdf.set_fill_color(*LIGHT_BG)
+        pdf.set_text_color(*DARK)
+        pdf.set_font("Helvetica", "", 8)
+        pdf.cell(0, 6, "  " + bus + "  |  " + addr, fill=True, new_x="LMARGIN", new_y="NEXT")
 
     pdf.set_text_color(*DARK)
-    pdf.set_y(y_dates + 28)
+    pdf.ln(2)
 
-    # Welcome app link - prominent box (super communicator style)
+    # DNI reminder
+    pdf.set_font("Helvetica", "B", 8)
+    pdf.set_text_color(*RED)
+    pdf.cell(0, 5, "Ten tu DNI listo - es obligatorio para ingresar al campus de la UPC.", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(*DARK)
+    pdf.ln(2)
+
+    # Welcome app link box
     app_link = "https://ezequielmolina-lang.github.io/bienvenida-docentes/"
     pdf.set_fill_color(*CREAM)
     pdf.set_draw_color(*ORANGE)
     pdf.set_line_width(0.8)
     x, y = pdf.get_x(), pdf.get_y()
     w_box = pdf.w - pdf.l_margin - pdf.r_margin
-    pdf.rect(x, y, w_box, 28, style="DF")
-    pdf.set_xy(x + 4, y + 3)
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.rect(x, y, w_box, 20, style="DF")
+    pdf.set_xy(x + 4, y + 2)
+    pdf.set_font("Helvetica", "B", 10)
     pdf.set_text_color(*DEEP_ORANGE)
-    pdf.cell(w_box - 8, 6, "Guarda este link en tu celular", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w_box - 8, 5, "Guarda este link en tu celular", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(x + 4)
-    pdf.set_font("Helvetica", "", 8)
-    pdf.set_text_color(80, 80, 80)
-    pdf.cell(w_box - 8, 5, "Tu bienvenida digital con horarios, aulas, mapas y todo lo que necesitas.",
-             align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_x(x + 4)
-    pdf.set_font("Helvetica", "U", 9)
+    pdf.set_font("Helvetica", "U", 8)
     pdf.set_text_color(*BLUE)
-    pdf.cell(w_box - 8, 6, "Abrir mi paquete de bienvenida",
+    pdf.cell(w_box - 8, 5, "Abrir mi paquete de bienvenida",
              align="C", link=app_link, new_x="LMARGIN", new_y="NEXT")
-    pdf.set_y(y + 32)
+    pdf.set_y(y + 23)
     pdf.set_draw_color(0, 0, 0)
     pdf.set_line_width(0.2)
     pdf.set_text_color(*DARK)
-    pdf.ln(3)
-
-    pdf.colored_box(
-        "SEDE: UPC Campus Villa, Chorrillos, Lima\n"
-        "Capacitacion presencial de 2 dias  |  Marzo 2026"
-    )
 
     # ===== PAGE 2: UGEL TABLE =====
     pdf.add_page()
@@ -471,22 +500,11 @@ def build_pdf():
     pdf.bullet("-", "Como llegar: Desde la cafeteria, camina hacia Starbucks. El Pabellon A esta justo al lado.")
     pdf.ln(3)
 
-    # Two photos side by side (both landscape)
-    y_p = pdf.get_y()
-    tunel = os.path.join(FOTOS, "pabellon_a_lab.png")
-    labs = os.path.join(FOTOS, "pabellon_a_camino.png")
-    if os.path.exists(tunel):
-        pdf.image(tunel, x=x_left, y=y_p, w=photo_w)
-    if os.path.exists(labs):
-        pdf.image(labs, x=x_right, y=y_p, w=photo_w)
-    pdf.set_y(y_p + 50)
-    pdf.set_font("Helvetica", "I", 7)
-    pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Laboratorio de Computo VA107 - Pabellon A", align="C", new_x="END")
-    pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Camino al Pabellon A (junto a Starbucks)", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_text_color(*DARK)
-    pdf.ln(4)
+    # Photos stacked vertically (portrait photos don't work side by side)
+    pdf.add_photo(os.path.join(FOTOS, "pabellon_a_lab.png"),
+                  "Laboratorio de Computo VA107 - Pabellon A", max_w=120)
+    pdf.add_photo(os.path.join(FOTOS, "pabellon_a_camino.png"),
+                  "Camino al Pabellon A (junto a Starbucks)", max_w=80)
 
     # Math key times + materials
     pdf.section_title("Horarios Clave")
@@ -516,22 +534,11 @@ def build_pdf():
     pdf.bullet("-", "Como llegar: Desde la cafeteria, camina hacia las escaleras rojas, sube al 2do piso. Ahi encontraras la Sala de Computadoras 2.")
     pdf.ln(3)
 
-    # Two photos side by side
-    y_p = pdf.get_y()
-    ruta = os.path.join(FOTOS, "entrada_pabellon_i.png")
-    mac = os.path.join(FOTOS, "escaleras_rojas_biblioteca.png")
-    if os.path.exists(ruta):
-        pdf.image(ruta, x=x_left, y=y_p, w=photo_w)
-    if os.path.exists(mac):
-        pdf.image(mac, x=x_right, y=y_p, w=photo_w)
-    pdf.set_y(y_p + 55)
-    pdf.set_font("Helvetica", "I", 7)
-    pdf.set_text_color(120, 120, 120)
-    pdf.cell(photo_w, 4, "Entrada Pabellon I (Biblioteca)", align="C", new_x="END")
-    pdf.cell(gap, 4, "", new_x="END")
-    pdf.cell(photo_w, 4, "Escaleras rojas hacia la Biblioteca - sube al 2do piso", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_text_color(*DARK)
-    pdf.ln(4)
+    # Photos stacked vertically (both are portrait)
+    pdf.add_photo(os.path.join(FOTOS, "entrada_pabellon_i.png"),
+                  "Entrada Pabellon I (Biblioteca)", max_w=80)
+    pdf.add_photo(os.path.join(FOTOS, "escaleras_rojas_biblioteca.png"),
+                  "Escaleras rojas - sube al 2do piso", max_w=80)
 
     # Tutoria key times + materials
     pdf.section_title("Horarios Clave")
