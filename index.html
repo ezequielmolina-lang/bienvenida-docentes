@@ -1508,26 +1508,30 @@ const ugelData = {
     '1': {
         dates: 'Viernes 20 y Sabado 21 de marzo (Recuperacion Grupo I)',
         grupo: 'Grupo I (recuperacion)',
-        bus: 'Sede UGEL 01 - San Juan de Miraflores',
-        address: 'Los s/n, Los Angeles, San Juan de Miraflores'
+        bus: '⚠️ Los buses salen solo desde UGEL 05, 06 y 07',
+        address: 'Como docente de UGEL 01, debes acercarte a la sede de una de esas UGELes para abordar el bus.',
+        noBus: true
     },
     '2': {
         dates: 'Viernes 20 y Sabado 21 de marzo (Recuperacion Grupo I)',
         grupo: 'Grupo I (recuperacion)',
-        bus: 'Sede UGEL 02 - Rimac',
-        address: 'Jr. Alfonso Bernal Montoya Mz B1, San Martin de Porres'
+        bus: '⚠️ Los buses salen solo desde UGEL 05, 06 y 07',
+        address: 'Como docente de UGEL 02, debes acercarte a la sede de una de esas UGELes para abordar el bus.',
+        noBus: true
     },
     '3': {
         dates: 'Viernes 20 y Sabado 21 de marzo (Recuperacion Grupo I)',
         grupo: 'Grupo I (recuperacion)',
-        bus: 'Sede UGEL 03 - Brena',
-        address: 'Av. Iquitos 918, La Victoria'
+        bus: '⚠️ Los buses salen solo desde UGEL 05, 06 y 07',
+        address: 'Como docente de UGEL 03, debes acercarte a la sede de una de esas UGELes para abordar el bus.',
+        noBus: true
     },
     '4': {
         dates: 'Viernes 20 y Sabado 21 de marzo (Recuperacion Grupo I)',
         grupo: 'Grupo I (recuperacion)',
-        bus: 'Sede UGEL 04 - Comas',
-        address: 'Av. Carabayllo 561, Comas'
+        bus: '⚠️ Los buses salen solo desde UGEL 05, 06 y 07',
+        address: 'Como docente de UGEL 04, debes acercarte a la sede de una de esas UGELes para abordar el bus.',
+        noBus: true
     },
     '5': {
         dates: 'Viernes 20 y Sabado 21 de marzo',
@@ -1560,7 +1564,17 @@ document.getElementById('ugelSelect').addEventListener('change', function() {
     if (selectedUgel && ugelData[selectedUgel]) {
         const d = ugelData[selectedUgel];
         document.getElementById('ugelDates').textContent = d.dates + ' (' + d.grupo + ')';
-        document.getElementById('ugelBus').innerHTML = d.bus + '<span class="address">' + d.address + '</span>';
+        if (d.noBus) {
+            document.getElementById('ugelBus').innerHTML = d.bus + '<span class="address">' + d.address + '</span>'
+                + '<div style="margin-top:0.5rem;font-size:0.8rem;line-height:1.4;">'
+                + '<strong>Sedes disponibles:</strong><br>'
+                + '🚌 UGEL 05 — Av. Peru s/n Urb, San Juan de Lurigancho<br>'
+                + '🚌 UGEL 06 — Av. La Molina 905, La Molina<br>'
+                + '🚌 UGEL 07 — Ca. Jose Alvarez Calderon 492, San Borja'
+                + '</div>';
+        } else {
+            document.getElementById('ugelBus').innerHTML = d.bus + '<span class="address">' + d.address + '</span>';
+        }
         info.classList.add('visible');
     } else {
         info.classList.remove('visible');
